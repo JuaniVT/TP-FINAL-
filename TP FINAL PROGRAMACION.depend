@@ -55,3 +55,27 @@
 
 1718157179 c:\users\juani\onedrive\desktop\tp-final-\login.h
 
+1718194907 source:c:\users\usuario\desktop\tp final\tp-final-\login.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"registro.h"
+	"login.h"
+
+1718198558 c:\users\usuario\desktop\tp final\tp-final-\registro.h
+
+1718194299 c:\users\usuario\desktop\tp final\tp-final-\login.h
+
+1718198660 source:c:\users\usuario\desktop\tp final\tp-final-\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"registro.h"
+	"login.h"
+
+1718198871 source:c:\users\usuario\desktop\tp final\tp-final-\registro.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"registro.h"
+

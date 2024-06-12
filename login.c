@@ -50,7 +50,7 @@ int comprobar_Login (FILE * arch, char nomb [], char contra [])
     int i = 1;
    while (fread (&aux, sizeof (usuario), 1, arch) > 0)
     {
-        if ((strcmpi (aux.user, nomb) == 0 || strcmpi (aux.email, nomb) == 0) && strcmpi (aux.contra, contra) == 0)
+        if ((strcmp (aux.user, nomb) == 0 || strcmp (aux.email, nomb) == 0) && strcmp (aux.contra, contra) == 0)
             {
                i = 0;
             }

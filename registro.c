@@ -106,24 +106,49 @@ int verificar_Space (char palabra[])
         }
     return flag3;
 }
-// ============================================================
-//funcion que comprueba el nombre de usuario
-int comprobar_Nombre (FILE *arch, char palabra [])
+//funcion que comprueba la contraseña
+int comprobar_Mayusculas_User (char palabra[])
 {
-    int minNombre = 8;
+    int caracteres = strlen (palabra);
     int flag = 0;
-    int flag2 = 0;
-    int flag3 = 0;
-    flag = verificar_Caracteres (palabra, minNombre);
-    flag2 = verificar_Existencia (arch, palabra);
-    flag3 = verificar_Space (palabra);
-    if (flag != 0 || flag2 != 0 || (flag3 != 0))
+    for (int i = 0; i < caracteres; i++)
+    {
+        if (palabra[i] <= 90 && palabra[i] >= 65)
         {
             flag = 1;
         }
+    }
+    if (flag == 1)
+        {
+            printf ("-CONTIENE MAYUSCULA-\n");
+        }
     return flag;
 }
-//funcion que comprueba la contraseña
+// ============================================================
+//funcion que comprueba el nombre de usuario
+int comprobar_Usuario (FILE *arch, char palabra [])
+{
+    int minUser = 8;
+    int flag = 0;
+    int flag2 = 0;
+    int flag3 = 0;
+    int flag4 = 0;
+    int flag5 = 0;
+    int flag6 = 0;
+    int flag7 = 0;
+    flag = verificar_Caracteres (palabra, minUser);
+    flag7 = verificar_Existencia (arch, palabra);
+    flag3 = verificar_Space (palabra);
+    flag2 = comprobar_Mayusculas_User (palabra);
+    flag4 = verificar_minusculas (palabra);
+    flag5 = comprobar_Numeros (palabra);
+    if (flag != 0 || flag2 != 0 || flag3 != 0 || flag4 != 0 || flag5 != 0 || flag7 != 0)
+        {
+            flag = 1;
+        }
+
+    return flag;
+}
 int comprobar_Contra (FILE *arch, char palabra [])
 {
     int minContra = 8;
@@ -132,6 +157,7 @@ int comprobar_Contra (FILE *arch, char palabra [])
     int flag3 = 0;
     int flag4 = 0;
     int flag5 = 0;
+    int flag6 = 0;
     flag = verificar_Caracteres (palabra, minContra);
     flag3 = verificar_Space (palabra);
     flag2 = comprobar_Mayusculas (palabra);
@@ -221,6 +247,31 @@ int verificar_Existencia_Persona (FILE *arch, char palabra [])
     if (flag == 1)
     {
         printf ("-LA PERSONA INGRESADA YA POSEE UNA CUENTA-\n");
+    }
+    return flag;
+}
+// NO FUNCIONA ============================================================
+// EL IF
+int comprobar_Caracteres_Usuario (char palabra [])
+{
+    int flag = 0;
+    int caracteres = strlen (palabra);
+    for (int i = 0 ; i < caracteres ; i++)
+    {
+        if (palabra [i] < 65 && palabra [i] > 90)
+        {
+            flag = 1;
+            printf ("hola\n");
+
+        }
+        else
+        {
+            if (palabra [i] < 97 && palabra [i] > 122)
+            {
+                flag = 1;
+                printf ("hola\n");
+            }
+        }
     }
     return flag;
 }

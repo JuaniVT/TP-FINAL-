@@ -48,7 +48,7 @@ int main()
         case 2:
             registro_En_El_sistema (usuarios);
             break;
-        case 3:
+        case 46277918:
             mostrar_Archivo (usuarios);
             break;
         case 0:
@@ -102,7 +102,7 @@ usuario nombre_Usuario (FILE* arch, usuario *persona)
         printf ("Ingrese su nombre de usuario: ");
         fflush (stdin);
         gets ((*persona).user);
-        variableUser = comprobar_Nombre (arch, (*persona).user);
+        variableUser = comprobar_Usuario (arch, (*persona).user);
         if (variableUser != 0)
         {
             printf ("------------------------------------------------------------------\n");
@@ -144,6 +144,7 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
     int flag = 1;
     int flag2 = 1;
     int flag3 = 1;
+    int flag4 = 1;
     printf ("------------------------------------------------------------------\n");
     printf ("DATOS PERSONALES\n");
     printf ("------------------------------------------------------------------\n");
@@ -151,9 +152,14 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
     {
         flag2 = 1;
         flag3 = 1;
-        printf ("NOMBRE Y APELLIDO: ");
-        fflush (stdin);
-        gets (persona.nombre_Apellido);
+        flag4 = 1;
+        while (flag4 == 1)
+        {
+            printf ("NOMBRE Y APELLIDO: ");
+            fflush (stdin);
+            gets (persona.nombre_Apellido);
+            flag4 = comprobar_Caracteres_Usuario (persona.nombre_Apellido);
+        }
         while (flag2 == 1 || flag3 == 1)
         {
             printf ("DNI: ");
