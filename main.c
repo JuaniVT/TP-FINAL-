@@ -11,6 +11,9 @@ void registro_En_El_sistema (char []);
 usuario crear_Cuenta (FILE*);
 usuario nombre_Usuario (FILE*, usuario*);
 usuario contrasena (FILE*, usuario*);
+usuario pedir_Datos_Registro (FILE*, usuario);
+void mostrar_Archivo (char []);
+void mostrarUsuario(usuario);
 int main()
 {
     // VARIABLES DEL MAIN =====================
@@ -40,6 +43,9 @@ int main()
         case 2:
             registro_En_El_sistema (usuarios);
             break;
+        case 3:
+            mostrar_Archivo (usuarios);
+            break;
         case 0:
             printf ("GRACIAS POR CONFIAR EN NOSOTROS\n");
             break;
@@ -66,6 +72,7 @@ void registro_En_El_sistema (char archivo [])
     if (arch != NULL)
     {
         persona = crear_Cuenta (arch);
+        fseek (arch, 0, SEEK_END);
         fwrite (&persona, sizeof (usuario), 1, arch);
     }
     fclose (arch);
@@ -74,6 +81,7 @@ void registro_En_El_sistema (char archivo [])
 usuario crear_Cuenta (FILE *arch)
 {
     usuario personaAux;
+    personaAux = pedir_Datos_Registro (arch, personaAux);
     nombre_Usuario (arch, &personaAux);
     contrasena (arch, &personaAux);
 
@@ -126,4 +134,57 @@ usuario contrasena (FILE* arch, usuario *persona)
 }
 // ===============================================================
 // FUNCION QUE PIDE DATOS PERSONALES PARA EL REGISTRO ============
-
+usuario pedir_Datos_Registro (FILE *arch, usuario persona)
+{
+    int flag = 1;
+    int flag2 = 1;
+    int flag3 = 1;
+    printf ("------------------------------------------------------------------\n");
+    printf ("DATOS PERSONALES\n");
+    printf ("------------------------------------------------------------------\n");
+    while (flag == 1)
+    {
+        flag2 = 1;
+        flag3 = 1;
+        printf ("NOMBRE Y APELLIDO: ");
+        fflush (stdin);
+        gets (persona.nombre_Apellido);
+        while (flag2 == 1 || flag3 == 1)
+        {
+            printf ("DNI: ");
+            fflush (stdin);
+            gets (persona.dni);
+            flag3 = verificar_Dni (persona.dni);
+            flag2 = verificar_Space (persona.dni);
+        }
+        flag = verificar_Existencia_Persona (arch, persona.dni);
+    }
+    flag = 1;
+    flag2 = 1;
+    while (flag == 1 || flag2 == 1)
+    {
+        printf ("MAIL: ");
+        gets (persona.email);
+        flag = verificar_Mail (persona.email);
+        flag2 = verificar_Space (persona.email);
+    }
+    return persona;
+}
+void mostrar_Archivo (char archivo [])
+{
+    FILE *arch =fopen (archivo, "rb");
+    usuario aux;
+    while (fread(&aux, sizeof (usuario), 1, arch) > 0)
+        {
+            mostrarUsuario (aux);
+            printf ("\n");
+        }
+}
+void mostrarUsuario(usuario u) {
+    printf("Nombre y Apellido: %s\n", u.nombre_Apellido);
+    printf("DNI: %s\n", u.dni);
+    printf("Email: %s\n", u.email);
+    printf("Fecha de Nacimiento: %02d/%02d/%d\n", u.nacimiento.dia, u.nacimiento.mes, u.nacimiento.anio);
+    printf("Contraseña: %s\n", u.contra);
+    printf("Usuario: %s\n", u.user);
+}
