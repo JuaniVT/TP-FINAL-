@@ -14,6 +14,10 @@ int comprobar_Mayusculas (char palabra[])
             flag = 0;
         }
     }
+    if (flag == 1)
+        {
+            printf ("-NO CONTIENE MAYUSCULA-\n");
+        }
     return flag;
 }
 int verificar_minusculas (char palabra[])
@@ -27,6 +31,10 @@ int verificar_minusculas (char palabra[])
             flag = 0;
         }
     }
+    if (flag == 1)
+        {
+            printf ("-NO CONTIENE MINUSCULAS-\n");
+        }
     return flag;
 }
 int comprobar_Numeros (char palabra[])
@@ -40,6 +48,10 @@ int comprobar_Numeros (char palabra[])
             flag = 0;
         }
     }
+    if (flag == 1)
+        {
+            printf ("-NO CONTIENE NUMEROS-\n");
+        }
     return flag;
 }
 // comprobacion de strlean
@@ -51,7 +63,10 @@ int verificar_Caracteres (char palabra [], int min)
     {
         flag = 0;
     }
-
+    if (flag == 1)
+    {
+        printf ("-CANTIDAD INSUFICIENTE DE CARACTERES-\n");
+    }
     return flag;
 }
 // funcion para comprobar que el nombre ya exista ========
@@ -67,6 +82,10 @@ int verificar_Existencia (FILE *arch, char palabra [])
             flag = 2;
         }
     }
+    if (flag == 2)
+    {
+        printf ("-EL DATO INGRESADO YA EXISTE-\n");
+    }
     return flag;
 }
 // COMPROBAR QUE EL USUARIO NO TENGA ESPACIOS
@@ -81,6 +100,10 @@ int verificar_Space (char palabra[])
             flag3 = 1;
         }
     }
+    if (flag3 == 1)
+        {
+           printf ("-EL DATO INGRESADO CONTIENE ESPACIOS-\n");
+        }
     return flag3;
 }
 // ============================================================
@@ -92,20 +115,8 @@ int comprobar_Nombre (FILE *arch, char palabra [])
     int flag2 = 0;
     int flag3 = 0;
     flag = verificar_Caracteres (palabra, minNombre);
-    if (flag == 1)
-    {
-        printf ("-CANTIDAD INSUFICIENTE DE CARACTERES-\n");
-    }
     flag2 = verificar_Existencia (arch, palabra);
-    if (flag2 == 2)
-    {
-        printf ("-EL NOMBRE INGRESADO YA EXISTE-\n");
-    }
     flag3 = verificar_Space (palabra);
-    if (flag3 == 1)
-        {
-           printf ("-EL NOMBRE INGRESADO CONTIENE ESPACIOS-\n");
-        }
     if (flag != 0 || flag2 != 0 || (flag3 != 0))
         {
             flag = 1;
@@ -122,31 +133,11 @@ int comprobar_Contra (FILE *arch, char palabra [])
     int flag4 = 0;
     int flag5 = 0;
     flag = verificar_Caracteres (palabra, minContra);
-    if (flag == 1)
-    {
-        printf ("-CANTIDAD INSUFICIENTE DE CARACTERES-\n");
-    }
     flag3 = verificar_Space (palabra);
-    if (flag3 == 1)
-        {
-           printf ("-LA CONTRASENA INGRESADA CONTIENE ESPACIOS-\n");
-        }
     flag2 = comprobar_Mayusculas (palabra);
-    if (flag2 == 1)
-        {
-            printf ("-LA CONTRASENA NO CONTIENE MAYUSCULA-\n");
-        }
     flag4 = verificar_minusculas (palabra);
-    if (flag4 == 1)
-        {
-            printf ("-LA CONTRASENA NO CONTIENE MINUSCULAS-\n");
-        }
     flag5 = comprobar_Numeros (palabra);
-    if (flag5 == 1)
-        {
-            printf ("-LA CONTRASENA NO CONTIENE NUMEROS-\n");
-        }
-    if (flag != 0 || flag2 != 0 || flag3 != 0 || flag4 != 0)
+    if (flag != 0 || flag2 != 0 || flag3 != 0 || flag4 != 0 || flag5 != 0)
         {
             flag = 1;
         }
@@ -178,5 +169,58 @@ int verificar_Contrasena (char palabra[])
           printf ("VERIFICADO\n");
           printf ("------------------------------------\n");
         }
+    return flag;
+}
+int verificar_Dni (char dni [])
+{
+    int flag = 1;
+    int cantidad = strlen (dni);
+    if (cantidad == 8)
+        {
+            flag = 0;
+        }
+    if (flag == 1)
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("EL DNI NO ES VALIDO\n");
+        printf ("------------------------------------------------------------------\n");
+    }
+    return flag;
+}
+int verificar_Mail (char mail [])
+{
+    int flag = 1;
+    int caracteres = strlen (mail);
+    for (int i = 0; i < caracteres; i++)
+    {
+        if (mail[i] == 64)
+        {
+            flag = 0;
+        }
+    }
+     if (flag == 1)
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("EL MAIL NO ES VALIDO\n");
+        printf ("------------------------------------------------------------------\n");
+    }
+    return flag;
+}
+int verificar_Existencia_Persona (FILE *arch, char palabra [])
+{
+    int flag = 0;
+    usuario aux;
+    fseek (arch, 0, SEEK_SET);
+    while (fread (&aux, sizeof (usuario), 1, arch) > 0)
+    {
+        if (strcmp (aux.dni, palabra) == 0)
+        {
+            flag = 1;
+        }
+    }
+    if (flag == 1)
+    {
+        printf ("-LA PERSONA INGRESADA YA POSEE UNA CUENTA-\n");
+    }
     return flag;
 }
