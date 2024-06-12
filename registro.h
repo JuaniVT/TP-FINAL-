@@ -16,8 +16,6 @@ typedef struct   // CREACION DE OTRA ESTRUCTURA PARA REGISTRARSE Y PODER LOGEARS
     char user [15];
 } usuario;
 
-
-
 int comprobar_Nombre (FILE*, char []);
 int comprobar_Contra (FILE *, char []);
 int verificar_Contrasena (char[]);

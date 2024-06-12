@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "registro.h"
+#include "login.h"
 //====================================================================================
 // TRABAJO FINAL PROGRAMACION I
 // Integrantes: Manuel Segovia, Juan Ignacio Valle Torres, Ignacio Agustin Villarreal
@@ -21,9 +22,10 @@ int main()
     char seguirMain;
     // ========================================
     // CREACION DE ARCHIVOS ===================
-    char autosArch [] = "autos.bin";
+    char autosArch [] = "autosArch.bin";
     char usuarios [] = "usuarios.bin";
     char ventas [] = "ventas.bin";
+    char personas [] = "personas.bin";
     // ========================================
 
     while (ops != 0)
@@ -40,6 +42,9 @@ int main()
         printf ("\n");
         switch (ops)
         {
+        case 1:
+            login_Persona (usuarios);
+            break;
         case 2:
             registro_En_El_sistema (usuarios);
             break;
@@ -170,6 +175,7 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
     }
     return persona;
 }
+
 void mostrar_Archivo (char archivo [])
 {
     FILE *arch =fopen (archivo, "rb");
@@ -188,3 +194,4 @@ void mostrarUsuario(usuario u) {
     printf("Contraseña: %s\n", u.contra);
     printf("Usuario: %s\n", u.user);
 }
+
