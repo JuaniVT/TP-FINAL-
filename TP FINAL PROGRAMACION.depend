@@ -17,16 +17,16 @@
 	<string.h>
 	<ctype.h>
 
-1718246768 source:c:\users\juani\onedrive\desktop\tp-final-\main.c
+1718336630 source:c:\users\juani\onedrive\desktop\tp-final-\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"registro.h"
 	"login.h"
 
-1718247417 c:\users\juani\onedrive\desktop\tp-final-\registro.h
+1718335577 c:\users\juani\onedrive\desktop\tp-final-\registro.h
 
-1718250141 source:c:\users\juani\onedrive\desktop\tp-final-\registro.c
+1718337013 source:c:\users\juani\onedrive\desktop\tp-final-\registro.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -46,7 +46,7 @@
 	<string.h>
 	"registro.h"
 
-1718246768 source:c:\users\juani\onedrive\desktop\tp-final-\login.c
+1718333797 source:c:\users\juani\onedrive\desktop\tp-final-\login.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

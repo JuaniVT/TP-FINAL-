@@ -30,4 +30,5 @@ int verificar_Existencia_Persona (FILE *, char []);
 int verificar_Mail (char []);
 int comprobar_Mayusculas_User (char []);
 int comprobar_Caracteres_Usuario (char palabra []);
+int verificar_dos_o_mas_palabras (char palabra []);
 #endif // REGISTRO_H_INCLUDED

@@ -153,13 +153,15 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
         flag2 = 1;
         flag3 = 1;
         flag4 = 1;
-        while (flag4 == 1)
+        while (flag4 == 1 || flag3 == 1)
         {
             printf ("NOMBRE Y APELLIDO: ");
             fflush (stdin);
             gets (persona.nombre_Apellido);
             flag4 = comprobar_Caracteres_Usuario (persona.nombre_Apellido);
+            flag3 = verificar_dos_o_mas_palabras (persona.nombre_Apellido);
         }
+        flag3 = 1;
         while (flag2 == 1 || flag3 == 1)
         {
             printf ("DNI: ");

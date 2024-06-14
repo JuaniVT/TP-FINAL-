@@ -268,3 +268,29 @@ int comprobar_Caracteres_Usuario (char palabra [])
     }
     return flag;
 }
+int verificar_dos_o_mas_palabras (char palabra [])
+{
+    int caracteres = strlen (palabra);
+    int minimo = 3;
+    int flag = 1;
+    for (int i = 0 ; i < caracteres ; i++)
+        {
+           if (i >= minimo && palabra [i] == 32)
+            {
+                for (int u = i ; u < caracteres ; u++)
+                    {
+                        if (u == i + 3)
+                            {
+                                flag = 0;
+                                break;
+                            }
+                    }
+            }
+        }
+    if (flag == 1)
+        {
+            printf ("INVALIDO\n");
+        }
+    return flag;
+}
+

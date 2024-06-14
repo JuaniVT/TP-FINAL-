@@ -12,7 +12,8 @@ void login_Persona (char archivo [])
         int i = 1;
         char contra_Login [20];
         char user_O_Mail [30];
-        while (i == 1)
+        char seguir = 's';
+        while (i == 1 && seguir != 'b')
         {
             printf ("-----------------------------------\n");
             printf ("LOGIN\n");
@@ -33,7 +34,11 @@ void login_Persona (char archivo [])
             {
                 printf ("-----------------------------------\n");
                 printf ("El usuario o contrasena no coinciden\n");
+                printf ("Si desea volver al menu ingrese 'b'\n");
                 printf ("-----------------------------------\n");
+                printf ("INGRESE AQUI: ");
+                fflush (stdin);
+                scanf ("%c", &seguir);
             }
             if (i == 0)
             {
