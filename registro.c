@@ -97,6 +97,23 @@ int comprobar_Numeros (char palabra[])
         }
     return flag;
 }
+int comprobar_Numeros_Dni (char palabra[])
+{
+    int caracteres = strlen (palabra);
+    int flag = 0;
+    for (int i = 0; i < caracteres; i++)
+    {
+        if (palabra[i] > 57 || palabra[i] < 48)
+        {
+            flag = 1;
+        }
+    }
+    if (flag == 1)
+        {
+            printf ("-INVALIDO-\n");
+        }
+    return flag;
+}
 // comprobacion de strlean
 int verificar_Caracteres (char palabra [], int min)
 {
@@ -370,10 +387,10 @@ int comprobar_Edad (int dia, int mes, int anio)
         }
     return flag;
 }
-int verificar_Rol (int aux)
+int verificar_Rol (char aux)
 {
     int flag = 0;
-    if (aux != 0 && aux != 1)
+    if (aux != '0' && aux != '1')
         {
             flag = 1;
             printf ("ROL INVALIDO\n");

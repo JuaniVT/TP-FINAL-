@@ -22,6 +22,7 @@ int verificar_Contrasena (char[]);
 int verificar_Caracteres (char [], int);
 int verificar_Existencia (FILE*, char []);
 int verificar_Space (char[]);
+int comprobar_Numeros_Dni (char []);
 int verificar_Contrasena (char[]);
 int comprobar_Mayusculas (char[]);
 int verificar_minusculas (char []);
@@ -36,5 +37,5 @@ int comprobar_Edad (int, int, int);
 int verificar_Dia (int, int);
 int verificar_Mes (int);
 int verificar_Anio (int);
-int verificar_Rol (int);
+int verificar_Rol (char);
 #endif // REGISTRO_H_INCLUDED

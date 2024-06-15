@@ -161,12 +161,13 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
             flag3 = verificar_dos_o_mas_palabras (persona.nombre_Apellido);
         }
         flag3 = 1;
-        while (flag2 == 1 || flag3 == 1)
+        while (flag2 == 1 || flag3 == 1 || flag4 == 1)
         {
             printf ("DNI: ");
             fflush (stdin);
             gets (persona.dni);
             flag3 = verificar_Dni (persona.dni);
+            flag4 = comprobar_Numeros_Dni (persona.dni);
             flag2 = verificar_Space (persona.dni);
         }
         flag = verificar_Existencia_Persona (arch, persona.dni);
@@ -196,16 +197,18 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
         flag2 = verificar_Space (persona.email);
     }
     flag = 1;
+    flag2 = 1;
     while (flag == 1)
     {
-        int aux = 0;
+        char aux = '0' ;
         printf ("ROL (1 = vendedor ; 0 = Comprador)");
         printf ("INGRESE AQUI = ");
-        scanf ("%d", &aux);
+        fflush (stdin);
+        scanf ("%c", &aux);
         flag = verificar_Rol (aux);
         if (flag == 0)
             {
-                if (aux == 0)
+                if (aux == '0')
                     {
                         strcpy (persona.rol, "COMPRADOR");
                     }
@@ -232,7 +235,7 @@ void mostrarUsuario(usuario u) {
     printf("Nombre y Apellido: %s\n", u.nombre_Apellido);
     printf("DNI: %s\n", u.dni);
     printf("Email: %s\n", u.email);
-    printf("Fecha de Nacimiento: %02d/%02d/%d\n", u.nacimiento.dia, u.nacimiento.mes, u.nacimiento.anio);
+    printf("Fecha de Nacimiento: %d/%d/%d\n", u.nacimiento.dia, u.nacimiento.mes, u.nacimiento.anio);
     printf("Contraseña: %s\n", u.contra);
     printf("Usuario: %s\n", u.user);
     printf("Rol: %s\n", u.rol);
