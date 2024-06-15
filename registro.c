@@ -339,35 +339,38 @@ int verificar_Mes (int mes)
 int verificar_Dia (int dia, int mes)
 {
     int flag = 0;
-    int meses_31_dias [7] = {1, 3, 5, 7, 8, 10, 12};
-    int meses_30_dias [4] = {4, 6, 9, 11};
+    int meses_31_dias [] = {1, 3, 5, 7, 8, 10, 12};
+    int meses_30_dias [] = {4, 6, 9, 11};
     int febrero = 2;
-    int i = 0;
-    while (i < 7)
+    for (int i = 0 ; i < 7 ; i ++)
         {
-            if (mes == meses_30_dias[i] && i <= 7)
+            if (mes == meses_30_dias[i])
                 {
-                    if (dia >= 30)
+                    if (dia > 30)
                     {
                         flag = 1;
+                        break;
                     }
                 }
-            if (mes == meses_31_dias[i] && i <= 4)
-                {
-                    if (dia >= 31)
-                    {
-                        flag = 1;
-                    }
-                }
-            if (mes == febrero)
-                {
-                    if (dia >= 29)
-                        {
-                            flag = 1;
-                        }
-                }
-                i++;
         }
+     for (int i = 0 ; i < 7 ; i ++)
+     {
+        if (mes == meses_31_dias[i])
+                {
+                    if (dia > 31)
+                    {
+                        flag = 1;
+                        break;
+                    }
+                }
+     }
+    if (mes == febrero)
+    {
+        if (dia > 29)
+        {
+            flag = 1;
+        }
+    }
 
 return flag;
 }
@@ -377,6 +380,9 @@ int comprobar_Edad (int dia, int mes, int anio)
     int flag1 = 0;
     int flag2 = 0;
     int flag3 = 0;
+    printf ("%d\n", dia);
+    printf ("%d\n", mes);
+    printf ("%d\n", anio);
     flag1 = verificar_Anio (anio);
     flag2 = verificar_Mes (mes);
     flag3 = verificar_Dia (dia, mes);

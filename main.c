@@ -178,11 +178,8 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
         printf ("-----------------------------------------\n");
         printf ("FECHA DE NACIMIENTO\n");
         printf ("-----------------------------------------\n");
-        fflush (stdin);
         scanf ("%d", &persona.nacimiento.dia);
-        fflush (stdin);
         scanf ("%d", &persona.nacimiento.mes);
-        fflush (stdin);
         scanf ("%d", &persona.nacimiento.anio);
         flag = comprobar_Edad (persona.nacimiento.dia, persona.nacimiento.mes, persona.nacimiento.anio);
     }
@@ -230,6 +227,7 @@ void mostrar_Archivo (char archivo [])
             mostrarUsuario (aux);
             printf ("\n");
         }
+    fclose (arch);
 }
 void mostrarUsuario(usuario u) {
     printf("Nombre y Apellido: %s\n", u.nombre_Apellido);

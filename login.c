@@ -48,6 +48,7 @@ void login_Persona (char archivo [])
             }
         }
     }
+    fclose (arch);
 }
 int comprobar_Login (FILE * arch, char nomb [], char contra [])
 {
