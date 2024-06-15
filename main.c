@@ -172,6 +172,17 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
         }
         flag = verificar_Existencia_Persona (arch, persona.dni);
     }
+    fseek (arch, 0, SEEK_END);
+    flag = 1;
+    flag2 = 1;
+    while (flag == 1 || flag2 == 1)
+    {
+        printf ("MAIL: ");
+        fflush (stdin);
+        gets (persona.email);
+        flag = verificar_Mail (persona.email);
+        flag2 = verificar_Space (persona.email);
+    }
     flag = 1;
     while (flag == 1)
     {
@@ -182,16 +193,6 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
         scanf ("%d", &persona.nacimiento.mes);
         scanf ("%d", &persona.nacimiento.anio);
         flag = comprobar_Edad (persona.nacimiento.dia, persona.nacimiento.mes, persona.nacimiento.anio);
-    }
-    flag = 1;
-    flag2 = 1;
-    while (flag == 1 || flag2 == 1)
-    {
-        printf ("MAIL: ");
-        fflush (stdin);
-        gets (persona.email);
-        flag = verificar_Mail (persona.email);
-        flag2 = verificar_Space (persona.email);
     }
     flag = 1;
     flag2 = 1;
