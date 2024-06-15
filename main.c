@@ -25,7 +25,6 @@ int main()
     char autosArch [] = "autosArch.bin";
     char usuarios [] = "usuarios.bin";
     char ventas [] = "ventas.bin";
-    char personas [] = "personas.bin";
     // ========================================
 
     while (ops != 0)
@@ -173,17 +172,52 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
         flag = verificar_Existencia_Persona (arch, persona.dni);
     }
     flag = 1;
+    while (flag == 1)
+    {
+        printf ("-----------------------------------------\n");
+        printf ("FECHA DE NACIMIENTO\n");
+        printf ("-----------------------------------------\n");
+        fflush (stdin);
+        scanf ("%d", &persona.nacimiento.dia);
+        fflush (stdin);
+        scanf ("%d", &persona.nacimiento.mes);
+        fflush (stdin);
+        scanf ("%d", &persona.nacimiento.anio);
+        flag = comprobar_Edad (persona.nacimiento.dia, persona.nacimiento.mes, persona.nacimiento.anio);
+    }
+    flag = 1;
     flag2 = 1;
     while (flag == 1 || flag2 == 1)
     {
         printf ("MAIL: ");
+        fflush (stdin);
         gets (persona.email);
         flag = verificar_Mail (persona.email);
         flag2 = verificar_Space (persona.email);
     }
+    flag = 1;
+    while (flag == 1)
+    {
+        int aux = 0;
+        printf ("ROL (1 = vendedor ; 0 = Comprador)");
+        printf ("INGRESE AQUI = ");
+        scanf ("%d", &aux);
+        flag = verificar_Rol (aux);
+        if (flag == 0)
+            {
+                if (aux == 0)
+                    {
+                        strcpy (persona.rol, "COMPRADOR");
+                    }
+                    else
+                        {
+                            strcpy (persona.rol, "VENDEDOR");
+                        }
+            }
+
+    }
     return persona;
 }
-
 void mostrar_Archivo (char archivo [])
 {
     FILE *arch =fopen (archivo, "rb");
@@ -201,5 +235,5 @@ void mostrarUsuario(usuario u) {
     printf("Fecha de Nacimiento: %02d/%02d/%d\n", u.nacimiento.dia, u.nacimiento.mes, u.nacimiento.anio);
     printf("Contraseña: %s\n", u.contra);
     printf("Usuario: %s\n", u.user);
+    printf("Rol: %s\n", u.rol);
 }
-

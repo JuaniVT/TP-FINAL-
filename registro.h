@@ -14,6 +14,7 @@ typedef struct   // CREACION DE OTRA ESTRUCTURA PARA REGISTRARSE Y PODER LOGEARS
     Fecha nacimiento;
     char contra [20];
     char user [15];
+    char rol [10];
 } usuario;
 int comprobar_Usuario (FILE *arch, char []);
 int comprobar_Contra (FILE *, char []);
@@ -29,6 +30,11 @@ int verificar_Dni (char []);
 int verificar_Existencia_Persona (FILE *, char []);
 int verificar_Mail (char []);
 int comprobar_Mayusculas_User (char []);
-int comprobar_Caracteres_Usuario (char palabra []);
-int verificar_dos_o_mas_palabras (char palabra []);
+int comprobar_Caracteres_Usuario (char []);
+int verificar_dos_o_mas_palabras (char []);
+int comprobar_Edad (int, int, int);
+int verificar_Dia (int, int);
+int verificar_Mes (int);
+int verificar_Anio (int);
+int verificar_Rol (int);
 #endif // REGISTRO_H_INCLUDED

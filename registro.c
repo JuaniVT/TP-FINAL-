@@ -293,4 +293,90 @@ int verificar_dos_o_mas_palabras (char palabra [])
         }
     return flag;
 }
+int verificar_Anio (int anio)
+{
+    int flag = 0;
+    int limite = 2006;
+    int i = 0;
+    int aux = anio;
+    while (anio > 0)
+    {
+        anio = anio / 10;
+        i++;
+    }
+    if (aux > limite || i != 4)
+    {
+        flag = 1;
+    }
+    return flag;
+}
+int verificar_Mes (int mes)
+{
+    int flag = 0;
+    if (mes >= 12 || mes <= 1)
+        {
+            flag = 1;
+        }
+    return flag;
+}
+int verificar_Dia (int dia, int mes)
+{
+    int flag = 0;
+    int meses_31_dias [7] = {1, 3, 5, 7, 8, 10, 12};
+    int meses_30_dias [4] = {4, 6, 9, 11};
+    int febrero = 2;
+    int i = 0;
+    while (i < 7)
+        {
+            if (mes == meses_30_dias[i] && i <= 7)
+                {
+                    if (dia >= 30)
+                    {
+                        flag = 1;
+                    }
+                }
+            if (mes == meses_31_dias[i] && i <= 4)
+                {
+                    if (dia >= 31)
+                    {
+                        flag = 1;
+                    }
+                }
+            if (mes == febrero)
+                {
+                    if (dia >= 29)
+                        {
+                            flag = 1;
+                        }
+                }
+                i++;
+        }
 
+return flag;
+}
+int comprobar_Edad (int dia, int mes, int anio)
+{
+    int flag = 0;
+    int flag1 = 0;
+    int flag2 = 0;
+    int flag3 = 0;
+    flag1 = verificar_Anio (anio);
+    flag2 = verificar_Mes (mes);
+    flag3 = verificar_Dia (dia, mes);
+    if (flag1 != 0 || flag2 != 0 || flag3 != 0)
+        {
+            flag = 1;
+            printf ("EDAD INVALIDA\n");
+        }
+    return flag;
+}
+int verificar_Rol (int aux)
+{
+    int flag = 0;
+    if (aux != 0 && aux != 1)
+        {
+            flag = 1;
+            printf ("ROL INVALIDO\n");
+        }
+    return flag;
+}
