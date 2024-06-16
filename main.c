@@ -29,9 +29,9 @@ int main()
 
     while (ops != 0)
     {
-        printf ("------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf ("BIENVENIDO\n");
-        printf ("------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf ("1- LOGIN\n");
         printf ("2- REGISTRARSE\n");
         printf ("0- PARA CERRAR EL SISTEMA\n");
@@ -98,9 +98,18 @@ usuario nombre_Usuario (FILE* arch, usuario *persona)
     int variableUser = 1;
     while (variableUser != 0)
     {
-        printf ("Ingrese su nombre de usuario: ");
+        printf ("------------------------------------------------------------------\n");
+        printf ("CREE SU NOMBRE DE USUARIO\n");
+        printf ("------------------------------------------------------------------\n");
+        printf ("Requisitos:4\n");
+        printf ("Debe tener minimo 8 caracteres\n");
+        printf ("NO debe contener una Mayuscula\n");
+        printf ("NO debe contener espacios\n");
+        printf ("------------------------------------------------------------------\n");
+        printf ("INGRESE AQUI: ");
         fflush (stdin);
         gets ((*persona).user);
+        printf ("------------------------------------------------------------------\n");
         variableUser = comprobar_Usuario (arch, (*persona).user);
         if (variableUser != 0)
         {
@@ -119,9 +128,19 @@ usuario contrasena (FILE* arch, usuario *persona)
     //a cada funcion hay que agregarle su propia variable para recibir el valor =)
     while (variableContra != 0)
     {
-        printf ("Ingrese una contrasena: ");
+        printf ("------------------------------------------------------------------\n");
+        printf ("CREE UNA CONTRASEÑA\n");
+        printf ("------------------------------------------------------------------\n");
+        printf ("Requisitos:\n");
+        printf ("Debe contener una Mayuscula\n");
+        printf ("Debe tener minimo 8 caracteres\n");
+        printf ("Debe contener un numero\n");
+        printf ("NO debe contener espacios\n");
+        printf ("------------------------------------------------------------------\n");
+        printf ("INGRESE AQUI: ");
         fflush (stdin);
         gets ((*persona).contra);
+        printf ("------------------------------------------------------------------\n");
         variableContra = comprobar_Contra (arch, (*persona).contra);
         if (variableContra == 0)
             {
@@ -154,6 +173,7 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
         flag4 = 1;
         while (flag4 == 1 || flag3 == 1)
         {
+            printf ("------------------------------------------------------------------\n");
             printf ("NOMBRE Y APELLIDO: ");
             fflush (stdin);
             gets (persona.nombre_Apellido);
@@ -163,6 +183,7 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
         flag3 = 1;
         while (flag2 == 1 || flag3 == 1 || flag4 == 1)
         {
+            printf ("------------------------------------------------------------------\n");
             printf ("DNI: ");
             fflush (stdin);
             gets (persona.dni);
@@ -177,7 +198,8 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
     flag2 = 1;
     while (flag == 1 || flag2 == 1)
     {
-        printf ("MAIL: ");
+        printf ("------------------------------------------------------------------\n");
+        printf ("DIRECCION DE CORREO: ");
         fflush (stdin);
         gets (persona.email);
         flag = verificar_Mail (persona.email);
@@ -186,11 +208,14 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
     flag = 1;
     while (flag == 1)
     {
-        printf ("-----------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf ("FECHA DE NACIMIENTO\n");
-        printf ("-----------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
+        printf("Ingrese el dia de nacimiento: ");
         scanf ("%d", &persona.nacimiento.dia);
+        printf("Ingrese el mes de nacimiento: ");
         scanf ("%d", &persona.nacimiento.mes);
+        printf("Ingrese el año de nacimiento: ");
         scanf ("%d", &persona.nacimiento.anio);
         flag = comprobar_Edad (persona.nacimiento.dia, persona.nacimiento.mes, persona.nacimiento.anio);
     }
@@ -199,6 +224,7 @@ usuario pedir_Datos_Registro (FILE *arch, usuario persona)
     while (flag == 1)
     {
         char aux = '0' ;
+        printf ("------------------------------------------------------------------\n");
         printf ("ROL (1 = vendedor ; 0 = Comprador)");
         printf ("INGRESE AQUI = ");
         fflush (stdin);
@@ -231,6 +257,7 @@ void mostrar_Archivo (char archivo [])
     fclose (arch);
 }
 void mostrarUsuario(usuario u) {
+    printf ("------------------------------------------------------------------\n");
     printf("Nombre y Apellido: %s\n", u.nombre_Apellido);
     printf("DNI: %s\n", u.dni);
     printf("Email: %s\n", u.email);
@@ -238,4 +265,5 @@ void mostrarUsuario(usuario u) {
     printf("Contraseña: %s\n", u.contra);
     printf("Usuario: %s\n", u.user);
     printf("Rol: %s\n", u.rol);
+    printf ("------------------------------------------------------------------\n");
 }

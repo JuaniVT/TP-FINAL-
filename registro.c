@@ -11,7 +11,6 @@ int comprobar_Usuario (FILE *arch, char palabra [])
     int flag2 = 0;
     int flag3 = 0;
     int flag4 = 0;
-    int flag5 = 0;
     int flag6 = 0;
     int flag7 = 0;
     flag = verificar_Caracteres (palabra, minUser);
@@ -19,8 +18,7 @@ int comprobar_Usuario (FILE *arch, char palabra [])
     flag3 = verificar_Space (palabra);
     flag2 = comprobar_Mayusculas_User (palabra);
     flag4 = verificar_minusculas (palabra);
-    flag5 = comprobar_Numeros (palabra);
-    if (flag != 0 || flag2 != 0 || flag3 != 0 || flag4 != 0 || flag5 != 0 || flag7 != 0 || flag6)
+    if (flag != 0 || flag2 != 0 || flag3 != 0 || flag4 != 0 || flag7 != 0 || flag6)
         {
             flag = 1;
         }
@@ -76,7 +74,7 @@ int verificar_minusculas (char palabra[])
     }
     if (flag == 1)
         {
-            printf ("-NO CONTIENE MINUSCULAS-\n");
+            printf ("-NO CONTIENE MINUSCULA-\n");
         }
     return flag;
 }
@@ -110,7 +108,7 @@ int comprobar_Numeros_Dni (char palabra[])
     }
     if (flag == 1)
         {
-            printf ("-INVALIDO-\n");
+            printf ("-CARACTERES INVALIDOS EN EL DNI-\n");
         }
     return flag;
 }
@@ -144,7 +142,7 @@ int verificar_Existencia (FILE *arch, char palabra [])
     }
     if (flag == 2)
     {
-        printf ("-EL DATO INGRESADO YA EXISTE-\n");
+        printf ("-EL NOMBRE INGRESADO YA EXISTE-\n");
     }
     return flag;
 }
@@ -162,7 +160,7 @@ int verificar_Space (char palabra[])
     }
     if (flag3 == 1)
         {
-           printf ("-EL DATO INGRESADO CONTIENE ESPACIOS-\n");
+           printf ("-CONTIENE ESPACIOS-\n");
         }
     return flag3;
 }
@@ -188,9 +186,9 @@ int verificar_Contrasena (char palabra[])
 {
     char aux [20];
     int flag = 1;
-    printf ("------------------------------------\n");
+    printf ("------------------------------------------------------------------\n");
     printf ("VERIFICAR CONTRASENA\n");
-    printf ("------------------------------------\n");
+    printf ("------------------------------------------------------------------\n");
     printf ("Repetir contrasena: ");
     gets (aux);
     if (stricmp (palabra, aux) == 0)
@@ -199,15 +197,15 @@ int verificar_Contrasena (char palabra[])
     }
     if (flag == 1)
         {
-            printf ("------------------------------------\n");
+            printf ("------------------------------------------------------------------\n");
             printf ("LA CONTRASENA NO COINSIDE\n");
-            printf ("------------------------------------\n");
+            printf ("------------------------------------------------------------------\n");
         }
     else
         {
-          printf ("------------------------------------\n");
+          printf ("------------------------------------------------------------------\n");
           printf ("VERIFICADO\n");
-          printf ("------------------------------------\n");
+          printf ("------------------------------------------------------------------\n");
         }
     return flag;
 }
@@ -221,9 +219,7 @@ int verificar_Dni (char dni [])
         }
     if (flag == 1)
     {
-        printf ("------------------------------------------------------------------\n");
-        printf ("EL DNI NO ES VALIDO\n");
-        printf ("------------------------------------------------------------------\n");
+        printf ("-DNI INEXISTENTE-\n");
     }
     return flag;
 }
@@ -240,9 +236,7 @@ int verificar_Mail (char mail [])
     }
      if (flag == 1)
     {
-        printf ("------------------------------------------------------------------\n");
-        printf ("EL MAIL NO ES VALIDO\n");
-        printf ("------------------------------------------------------------------\n");
+        printf ("-EL MAIL NO ES VALIDO-\n");
     }
     return flag;
 }
@@ -264,8 +258,6 @@ int verificar_Existencia_Persona (FILE *arch, char palabra [])
     }
     return flag;
 }
-// NO FUNCIONA ============================================================
-// EL IF
 int comprobar_Caracteres_Usuario (char palabra [])
 {
     int flag = 1;
@@ -279,7 +271,7 @@ int comprobar_Caracteres_Usuario (char palabra [])
         else
         {
             flag = 1;
-            printf ("EL NOMBRE Y APELLIDO NO ES VALIDO\n");
+            printf ("-CARACTERES NO VALIDOS EN EL NOMBRE Y APELLIDO-\n");
             break;
         }
     }
@@ -306,7 +298,7 @@ int verificar_dos_o_mas_palabras (char palabra [])
         }
     if (flag == 1)
         {
-            printf ("INVALIDO\n");
+            printf ("-NO SE COMPLETO EL NOMBRE Y APELLIDO-\n");
         }
     return flag;
 }
@@ -380,16 +372,13 @@ int comprobar_Edad (int dia, int mes, int anio)
     int flag1 = 0;
     int flag2 = 0;
     int flag3 = 0;
-    printf ("%d\n", dia);
-    printf ("%d\n", mes);
-    printf ("%d\n", anio);
     flag1 = verificar_Anio (anio);
     flag2 = verificar_Mes (mes);
     flag3 = verificar_Dia (dia, mes);
     if (flag1 != 0 || flag2 != 0 || flag3 != 0)
         {
             flag = 1;
-            printf ("EDAD INVALIDA\n");
+            printf ("-EDAD INVALIDA-\n");
         }
     return flag;
 }
@@ -399,7 +388,7 @@ int verificar_Rol (char aux)
     if (aux != '0' && aux != '1')
         {
             flag = 1;
-            printf ("ROL INVALIDO\n");
+            printf ("-ROL INVALIDO-\n");
         }
     return flag;
 }
