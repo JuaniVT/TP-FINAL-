@@ -3,30 +3,21 @@
 #include <string.h>
 #include "registro.h"
 #include "login.h"
+#include "menus.h"
 //====================================================================================
 // TRABAJO FINAL PROGRAMACION I
 // Integrantes: Manuel Segovia, Juan Ignacio Valle Torres, Ignacio Agustin Villarreal
 // SISTEMA PARA CONCESIONARIA DE AUTOS
 //====================================================================================
-void registro_En_El_sistema (char []);
-usuario crear_Cuenta (FILE*);
-usuario nombre_Usuario (FILE*, usuario*);
-usuario contrasena (FILE*, usuario*);
-usuario pedir_Datos_Registro (FILE*, usuario);
-void mostrar_Archivo (char []);
-void mostrarUsuario(usuario);
+char ventas [] = "ventas.bin";
+char autosArch [] = "autosArch.bin";
+char usuarios [] = "usuarios.bin";
 int main()
 {
     // VARIABLES DEL MAIN =====================
     int ops = 1; // SWITCH
     char seguirMain;
     // ========================================
-    // CREACION DE ARCHIVOS ===================
-    char autosArch [] = "autosArch.bin";
-    char usuarios [] = "usuarios.bin";
-    char ventas [] = "ventas.bin";
-    // ========================================
-
     while (ops != 0)
     {
         printf ("------------------------------------------------------------------\n");
@@ -47,9 +38,6 @@ int main()
         case 2:
             registro_En_El_sistema (usuarios);
             break;
-        case 46277918:
-            mostrar_Archivo (usuarios);
-            break;
         case 0:
             printf ("GRACIAS POR CONFIAR EN NOSOTROS\n");
             break;
@@ -65,205 +53,48 @@ int main()
     }
     return 0;
 }
-// registro
-void registro_En_El_sistema (char archivo [])
+void menu_Vendedor (usuario persona)
 {
-    printf ("------------------------------------------------------------------\n");
-    printf ("CREACION DE USUARIO\n");
-    printf ("------------------------------------------------------------------\n");
-    FILE *arch = fopen (archivo, "a+b");
-    usuario persona;
-    if (arch != NULL)
-    {
-        persona = crear_Cuenta (arch);
-        fseek (arch, 0, SEEK_END);
-        fwrite (&persona, sizeof (usuario), 1, arch);
-    }
-    fclose (arch);
-}
-// ACA SE CREA EL LA CUENTA ================================
-usuario crear_Cuenta (FILE *arch)
-{
-    usuario personaAux;
-    personaAux = pedir_Datos_Registro (arch, personaAux);
-    nombre_Usuario (arch, &personaAux);
-    contrasena (arch, &personaAux);
-
-    return personaAux;
-}
-// ===================================================
-// registro al sistema de usuario
-usuario nombre_Usuario (FILE* arch, usuario *persona)
-{
-    int variableUser = 1;
-    while (variableUser != 0)
+    int op = 1;
+    while (op != 0)
     {
         printf ("------------------------------------------------------------------\n");
-        printf ("CREE SU NOMBRE DE USUARIO\n");
+        printf ("BIENVENIDO %s\n", persona.nombre_Apellido);
+        printf ("MENU PRINCIPAL\n");
         printf ("------------------------------------------------------------------\n");
-        printf ("Requisitos:4\n");
-        printf ("Debe tener minimo 8 caracteres\n");
-        printf ("NO debe contener una Mayuscula\n");
-        printf ("NO debe contener espacios\n");
-        printf ("------------------------------------------------------------------\n");
+        printf ("0- CERRAR SECCION\n");
+        printf ("1- MOSTRAR LISTADO DE USUARIOS\n");
+        printf ("2- MODIFICAR USUARIO\n");
+        printf ("3- AGRAGAR UN USUARIO\n");
+        printf ("4- MOSTRAR UN USUARIO(toda la info)\n");
         printf ("INGRESE AQUI: ");
-        fflush (stdin);
-        gets ((*persona).user);
-        printf ("------------------------------------------------------------------\n");
-        variableUser = comprobar_Usuario (arch, (*persona).user);
-        if (variableUser != 0)
+        scanf ("%d", &op);
+        switch (op)
         {
+        case 0:
             printf ("------------------------------------------------------------------\n");
-            printf ("REINGRESAR NOMBRE DE USUARIO\n");
+            printf ("SECCION CERRADA\n");
             printf ("------------------------------------------------------------------\n");
+            break;
+        case 1:
+            mostrar_Archivo (usuarios);
+            break;
+        case 2:
+            modificar_usuario (usuarios);
+            break;
+        case 3:
+            registro_En_El_sistema (usuarios);
+            break;
+        case 4:
+            mostrar_Datos_Usuario (usuarios);
+            break;
+        case 5:
+            registro_auto_Sistema (autosArch);
+            break;
+        case 6:
+            recorrer_Array_Autos (autosArch);
+            break;
         }
     }
-    return (*persona);
-}
-// ======================================================
-// CREA CONTRASEÑA
-usuario contrasena (FILE* arch, usuario *persona)
-{
-    int variableContra = 1;
-    //a cada funcion hay que agregarle su propia variable para recibir el valor =)
-    while (variableContra != 0)
-    {
-        printf ("------------------------------------------------------------------\n");
-        printf ("CREE UNA CONTRASEÑA\n");
-        printf ("------------------------------------------------------------------\n");
-        printf ("Requisitos:\n");
-        printf ("Debe contener una Mayuscula\n");
-        printf ("Debe tener minimo 8 caracteres\n");
-        printf ("Debe contener un numero\n");
-        printf ("NO debe contener espacios\n");
-        printf ("------------------------------------------------------------------\n");
-        printf ("INGRESE AQUI: ");
-        fflush (stdin);
-        gets ((*persona).contra);
-        printf ("------------------------------------------------------------------\n");
-        variableContra = comprobar_Contra (arch, (*persona).contra);
-        if (variableContra == 0)
-            {
-             variableContra = verificar_Contrasena ((*persona).contra);
-            }
-        if (variableContra != 0)
-        {
-            printf ("------------------------------------------------------------------\n");
-            printf ("REESCRIBA LA CONTRASENA\n");
-            printf ("------------------------------------------------------------------\n");
-        }
-    }
-    return (*persona);
-}
-// ===============================================================
-// FUNCION QUE PIDE DATOS PERSONALES PARA EL REGISTRO ============
-usuario pedir_Datos_Registro (FILE *arch, usuario persona)
-{
-    int flag = 1;
-    int flag2 = 1;
-    int flag3 = 1;
-    int flag4 = 1;
-    printf ("------------------------------------------------------------------\n");
-    printf ("DATOS PERSONALES\n");
-    printf ("------------------------------------------------------------------\n");
-    while (flag == 1)
-    {
-        flag2 = 1;
-        flag3 = 1;
-        flag4 = 1;
-        while (flag4 == 1 || flag3 == 1)
-        {
-            printf ("------------------------------------------------------------------\n");
-            printf ("NOMBRE Y APELLIDO: ");
-            fflush (stdin);
-            gets (persona.nombre_Apellido);
-            flag4 = comprobar_Caracteres_Usuario (persona.nombre_Apellido);
-            flag3 = verificar_dos_o_mas_palabras (persona.nombre_Apellido);
-        }
-        flag3 = 1;
-        while (flag2 == 1 || flag3 == 1 || flag4 == 1)
-        {
-            printf ("------------------------------------------------------------------\n");
-            printf ("DNI: ");
-            fflush (stdin);
-            gets (persona.dni);
-            flag3 = verificar_Dni (persona.dni);
-            flag4 = comprobar_Numeros_Dni (persona.dni);
-            flag2 = verificar_Space (persona.dni);
-        }
-        flag = verificar_Existencia_Persona (arch, persona.dni);
-    }
-    fseek (arch, 0, SEEK_END);
-    flag = 1;
-    flag2 = 1;
-    while (flag == 1 || flag2 == 1)
-    {
-        printf ("------------------------------------------------------------------\n");
-        printf ("DIRECCION DE CORREO: ");
-        fflush (stdin);
-        gets (persona.email);
-        flag = verificar_Mail (persona.email);
-        flag2 = verificar_Space (persona.email);
-    }
-    flag = 1;
-    while (flag == 1)
-    {
-        printf ("------------------------------------------------------------------\n");
-        printf ("FECHA DE NACIMIENTO\n");
-        printf ("------------------------------------------------------------------\n");
-        printf("Ingrese el dia de nacimiento: ");
-        scanf ("%d", &persona.nacimiento.dia);
-        printf("Ingrese el mes de nacimiento: ");
-        scanf ("%d", &persona.nacimiento.mes);
-        printf("Ingrese el año de nacimiento: ");
-        scanf ("%d", &persona.nacimiento.anio);
-        flag = comprobar_Edad (persona.nacimiento.dia, persona.nacimiento.mes, persona.nacimiento.anio);
-    }
-    flag = 1;
-    flag2 = 1;
-    while (flag == 1)
-    {
-        char aux = '0' ;
-        printf ("------------------------------------------------------------------\n");
-        printf ("ROL (1 = vendedor ; 0 = Comprador)");
-        printf ("INGRESE AQUI = ");
-        fflush (stdin);
-        scanf ("%c", &aux);
-        flag = verificar_Rol (aux);
-        if (flag == 0)
-            {
-                if (aux == '0')
-                    {
-                        strcpy (persona.rol, "COMPRADOR");
-                    }
-                    else
-                        {
-                            strcpy (persona.rol, "VENDEDOR");
-                        }
-            }
 
-    }
-    return persona;
-}
-void mostrar_Archivo (char archivo [])
-{
-    FILE *arch =fopen (archivo, "rb");
-    usuario aux;
-    while (fread(&aux, sizeof (usuario), 1, arch) > 0)
-        {
-            mostrarUsuario (aux);
-            printf ("\n");
-        }
-    fclose (arch);
-}
-void mostrarUsuario(usuario u) {
-    printf ("------------------------------------------------------------------\n");
-    printf("Nombre y Apellido: %s\n", u.nombre_Apellido);
-    printf("DNI: %s\n", u.dni);
-    printf("Email: %s\n", u.email);
-    printf("Fecha de Nacimiento: %d/%d/%d\n", u.nacimiento.dia, u.nacimiento.mes, u.nacimiento.anio);
-    printf("Contraseña: %s\n", u.contra);
-    printf("Usuario: %s\n", u.user);
-    printf("Rol: %s\n", u.rol);
-    printf ("------------------------------------------------------------------\n");
 }
