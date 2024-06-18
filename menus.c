@@ -4,6 +4,7 @@
 #include "registro.h"
 #include "login.h"
 #include "menus.h"
+#include "pila.h"
 // POR EL MOMENTO ESTO MUESTRA LOS USUARIOS DE CARACTER TEMPORAL
 void mostrar_Archivo (char archivo [])
 {
@@ -714,10 +715,8 @@ void calcular_Ganancia_Venta (char autosArch [], ventaS *venta)
     {
         while (fread(&aux, sizeof (autoS), 1, arch) > 0)
         {
-            printf ("hola\n");
             if ((strcmp ((*venta).autoAVender.letras, aux.patente.letras) == 0) && (strcmp ((*venta).autoAVender.numeros, aux.patente.numeros) == 0))
             {
-                printf ("Hola\n");
                 int precioAdquisicion = atoi (aux.precioDeAdquisicion);
                 int precioVenta = atoi ((*venta).precioVenta);
                 int ganancia = precioVenta - precioAdquisicion;
@@ -814,4 +813,70 @@ void mostrar_VentaS_Completo (ventaS venta)
     printf("Ganancia: %s\n", venta.ganancia);
     printf("DNI del Comprador: %s\n", venta.dniComprador);
     printf("DNI del Vendedor: %s\n", venta.dniVendedor);
+}
+int calcular_Recaudacion (FILE *arch, char anio [], char mes [])
+{
+    ventaS aux;
+    int flag = 1;
+    int flag2 = 1;
+    int i = 0;
+    printf ("------------------------------------------------------------------\n");
+    printf ("SECCION QUE CALCULA LAS RECAUDACIONES\n");
+    printf ("------------------------------------------------------------------\n");
+    while (flag == 1 || flag2 == 1)
+    {
+        printf ("INGRESE EL AÑO QUE DESEA CONTABILIZAR: ");
+        fflush (stdin);
+        gets (anio);
+        flag = comprobar_Numeros_Dni (anio);
+         int anioInt = atoi (anio);
+        flag2 = verificar_Anio_Auto (anioInt);
+    }
+    flag = 1;
+    flag2 = 1;
+    while (flag == 1 || flag2 == 1)
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("INGRESE EL MES QUE DESEA CONTABILIZAR: ");
+        fflush (stdin);
+        gets (mes);
+        flag = comprobar_Numeros_Dni (anio);
+        int mesInt = atoi (mes);
+        flag2 = verificar_Mes (mesInt);
+    }
+    while (fread (&aux, sizeof (ventaS), 1, arch) > 0)
+    {
+        if (strcmp (anio, aux.fecha.anio) == 0 && strcmp (mes, aux.fecha.mes) == 0)
+        {
+            i++;
+        }
+    }
+    return i;
+}
+void mostrar_Recaudacion (char ventas [])
+{
+    ventaS aux;
+    char anio [5];
+    char mes [3];
+    FILE *arch = fopen (ventas, "rb");
+    if (arch != NULL)
+    {
+        int cant_Ventas = calcular_Recaudacion (arch, anio, mes);
+        int* array = (int*) malloc (sizeof (int)*cant_Ventas);
+        int i = 0;
+        printf ("------------------------------------------------------------------\n");
+        printf ("SE ENCONTRO del mes de %s", mes);
+        printf ("------------------------------------------------------------------\n");
+        while (fread (&aux, sizeof (ventaS), 1, arch) > 0)
+        {
+            if (strcmp (anio, aux.fecha.anio) == 0 && strcmp (mes, aux.fecha.mes) == 0)
+            {
+                mostrar_VentaS_Completo (aux);
+                int gananciaInt = atoi (aux.ganancia);
+                array[i] = gananciaInt;
+                i++;
+            }
+        }
+    }
+
 }

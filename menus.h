@@ -51,4 +51,6 @@ void mostrar_Ventas_Arch_Completo (char []);
 void mostrar_Venta (ventaS);
 int verificar_Existencia_Persona_Venta (char [], char [], char [], char [], char []);
 void mostrar_VentaS_Completo (ventaS);
+int calcular_Recaudacion (FILE *, char [], char []);
+void mostrar_Recaudacion (char []);
 #endif // MENUS_H_INCLUDED

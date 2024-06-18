@@ -4,6 +4,7 @@
 #include "registro.h"
 #include "login.h"
 #include "menus.h"
+#include "pila.h"
 void login_Persona (char archivo [])
 {
     FILE *arch = fopen (archivo, "rb");

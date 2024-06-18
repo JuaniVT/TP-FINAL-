@@ -4,6 +4,7 @@
 #include "registro.h"
 #include "login.h"
 #include "menus.h"
+#include "pila.h"
 //====================================================================================
 // TRABAJO FINAL PROGRAMACION I
 // Integrantes: Manuel Segovia, Juan Ignacio Valle Torres, Ignacio Agustin Villarreal
@@ -116,7 +117,8 @@ void menu_Vendedor (usuario persona)
         case 11:
             mostrar_Ventas_Arch_Completo (ventasArch);
             break;
+        case 12:
+            break;
         }
     }
-
 }

@@ -3,6 +3,7 @@
 #include <string.h>
 #include "registro.h"
 #include "menus.h"
+#include "pila.h"
 // registro
 void registro_En_El_sistema (char archivo [])
 {
