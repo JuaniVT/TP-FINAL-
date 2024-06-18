@@ -53,4 +53,5 @@ int verificar_Existencia_Persona_Venta (char [], char [], char [], char [], char
 void mostrar_VentaS_Completo (ventaS);
 int calcular_Recaudacion (FILE *, char [], char []);
 void mostrar_Recaudacion (char []);
+void calcular_Venta_Mayor_Ganancia(char[]);
 #endif // MENUS_H_INCLUDED

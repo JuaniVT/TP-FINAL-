@@ -75,6 +75,8 @@ void menu_Vendedor (usuario persona)
         printf ("9- REGISTRAR UNA VENTA\n");
         printf ("10- VER VENTAS (fecha y patente)\n");
         printf ("11- VER VENTAS (completo)\n");
+        printf ("12- CALCULAR LA RECAUDACION DE UN DETERMINADO MES DE UN ANIO\n");
+        printf ("13- MOSTRAR VENTA CON MAYOR GANANCIA\n");
         printf ("INGRESE AQUI: ");
         scanf ("%d", &op);
         switch (op)
@@ -118,6 +120,10 @@ void menu_Vendedor (usuario persona)
             mostrar_Ventas_Arch_Completo (ventasArch);
             break;
         case 12:
+            mostrar_Recaudacion (ventasArch);
+            break;
+        case 13:
+            calcular_Venta_Mayor_Ganancia (ventasArch);
             break;
         }
     }

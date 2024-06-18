@@ -345,9 +345,10 @@ int comprobar_kms_Auto (char kms [])
 {
     int flag = 0;
     int num = atoi (kms);
-    if (num > 300000)
+    if (num > 200000)
     {
         flag = 1;
+        printf ("-DEMASIADOS KMS-\n");
     }
     return flag;
 }
@@ -856,6 +857,7 @@ int calcular_Recaudacion (FILE *arch, char anio [], char mes [])
 void mostrar_Recaudacion (char ventas [])
 {
     ventaS aux;
+    int recaudacionFinal = 0;
     char anio [5];
     char mes [3];
     FILE *arch = fopen (ventas, "rb");
@@ -864,19 +866,53 @@ void mostrar_Recaudacion (char ventas [])
         int cant_Ventas = calcular_Recaudacion (arch, anio, mes);
         int* array = (int*) malloc (sizeof (int)*cant_Ventas);
         int i = 0;
+        fseek (arch, 0, SEEK_SET);
         printf ("------------------------------------------------------------------\n");
-        printf ("SE ENCONTRO del mes de %s", mes);
+        printf ("SE ENCONTRO del mes %s\n", mes);
         printf ("------------------------------------------------------------------\n");
         while (fread (&aux, sizeof (ventaS), 1, arch) > 0)
         {
             if (strcmp (anio, aux.fecha.anio) == 0 && strcmp (mes, aux.fecha.mes) == 0)
             {
                 mostrar_VentaS_Completo (aux);
+                printf ("------------------------------------------------------------------\n");
                 int gananciaInt = atoi (aux.ganancia);
                 array[i] = gananciaInt;
                 i++;
             }
         }
+        for (int i = 0 ; i < cant_Ventas ; i++)
+            {
+                recaudacionFinal = recaudacionFinal + array [i];
+            }
     }
+    fclose (arch);
+    printf ("LA RECAUDACION DEL MES DE %s, año %s fue de %d\n", mes, anio, recaudacionFinal);
+    printf ("------------------------------------------------------------------\n");
 
+}
+void calcular_Venta_Mayor_Ganancia(char ventasArch[])
+{
+    FILE *arch = fopen(ventasArch, "rb");
+    ventaS aux, mayorVenta;
+    int mayorGanancia = -1;
+
+    if (arch == NULL)
+    {
+        printf("No se pudo abrir el archivo de ventas.\n");
+    }
+    while (fread(&aux, sizeof(ventaS), 1, arch) > 0)
+    {
+        int ganancia = atoi(aux.ganancia);
+        if (ganancia > mayorGanancia)
+        {
+            mayorGanancia = ganancia;
+            mayorVenta = aux;
+        }
+    }
+    fclose(arch);
+    printf ("------------------------------------------------------------------\n");
+    printf("VENTA DE MAYOR GANANCIA\n");
+    printf ("------------------------------------------------------------------\n");
+    mostrar_VentaS_Completo (mayorVenta);
 }
