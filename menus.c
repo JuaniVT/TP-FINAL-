@@ -649,7 +649,8 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
     flag = 1;
     flag2 = 1;
     flag3 = 1;
-    while (flag == 1 || flag3 == 1 || flag2 == 1)
+    int flag4 = 1;
+    while (flag == 1 || flag3 == 1 || flag2 == 1 || flag4 == 1)
     {
         printf ("------------------------------------------------------------------\n");
         printf ("DNI DEL COMPRADOR: ");
@@ -658,6 +659,10 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
         flag2 = verificar_Dni (venta.dniComprador);
         flag3 = comprobar_Numeros_Dni (venta.dniComprador);
         flag = verificar_Space (venta.dniComprador);
+        if (flag == 0 && flag2 == 0 && flag3 == 0)
+            {
+                 flag4 = verificar_Existencia_Persona_Venta (autosArch, usersArch, venta.dniComprador, venta.autoAVender.letras, venta.autoAVender.numeros);
+            }
     }
     return venta;
 }
@@ -732,23 +737,49 @@ void mostrar_Venta (ventaS aux)
     printf("Fecha de venta: %s/%s/%s\n", aux.fecha.dia, aux.fecha.mes, aux.fecha.anio);
     printf("Patente: %s %s\n", aux.autoAVender.letras, aux.autoAVender.numeros);
 }
-int verificar_Existencia_Persona_Venta (char usersArch [], char dni [])
+int verificar_Existencia_Persona_Venta (char autosArch [], char usersArch [], char dni [], char letras [], char numeros [])
 {
     FILE *arch = fopen (usersArch, "rb");
     int flag = 1;
     usuario aux;
-    fseek (arch, 0, SEEK_SET);
-    while (fread (&aux, sizeof (usuario), 1, arch) > 0)
+    int i = 0;
+    if (arch != NULL)
     {
-        if (strcmp (aux.dni, dni) == 0)
+        fseek (arch, 0, SEEK_SET);
+        while (fread (&aux, sizeof (usuario), 1, arch) > 0)
         {
-            flag = 0;
-            break;
+            if (strcmp (aux.dni, dni) == 0)
+            {
+                printf ("hola\n");
+                FILE * arc = fopen (autosArch, "rb+");
+                autoS autoAux;
+                if (arc != NULL)
+                {
+                    while (fread (&autoAux, sizeof (autoS), 1, arc) > 0)
+                    {
+                        if ((strcmp (letras, autoAux.patente.letras) == 0) && (strcmp (numeros, autoAux.patente.numeros) == 0))
+                        {
+                            printf ("hola\n");
+                            fseek (arc, sizeof (autoS)*i, SEEK_SET);
+                            autoAux.titular = aux;
+                            fwrite (&autoAux, sizeof (autoS), 1, arc);
+                            flag = 0;
+                            break;
+                        }
+                        i++;
+
+                    }
+                    fclose (arc);
+                }
+            }
         }
+        fclose (arch);
     }
+
     if (flag == 1)
     {
         printf ("-LA PERSONA INGRESADA NO EXITE-\n");
     }
+
     return flag;
 }
