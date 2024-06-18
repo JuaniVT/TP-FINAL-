@@ -47,6 +47,8 @@ int buscar_Coincidencia_Patente (char [], char [], char []);
 int comprobar_Fecha_Venta (int, int, int);
 void calcular_Ganancia_Venta (char [], ventaS*);
 void mostrar_Ventas (char []);
+void mostrar_Ventas_Arch_Completo (char []);
 void mostrar_Venta (ventaS);
 int verificar_Existencia_Persona_Venta (char [], char [], char [], char [], char []);
+void mostrar_VentaS_Completo (ventaS);
 #endif // MENUS_H_INCLUDED
