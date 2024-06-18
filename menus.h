@@ -2,8 +2,8 @@
 #define MENUS_H_INCLUDED
 typedef struct
 {
-    char letras[3];
-    char numeros[3];
+    char letras[4];
+    char numeros[4];
 } patente;
 
 typedef struct
@@ -11,7 +11,7 @@ typedef struct
     patente patente;
     char marca[15];
     char modelo[20];
-    char anio [4];
+    char anio [5];
     char kms [9];
     usuario titular;
     char precioDeAdquisicion [9];

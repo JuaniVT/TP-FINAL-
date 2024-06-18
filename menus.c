@@ -313,6 +313,9 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
     gets (autoAux.kms);
     flag2 = comprobar_kms_Auto (autoAux.kms);
     }
+    strcpy (autoAux.titular.user, "consecionaria");
+    printf ("Precio adquisicion\n");
+    gets (autoAux.precioDeAdquisicion);
     return autoAux;
 }
 // COMPROBACIONES A LA CARGAR DE AUTOS =====================================
@@ -351,7 +354,7 @@ int validar_Existencia_Auto (FILE *arch, char letras [], char numeros [])
     int flag = 0;
     while (fread(&aux, sizeof (autoS), 1, arch) > 0)
         {
-            if (strcmp (aux.patente.letras, letras) == 0 && strcmp (aux.patente.numeros, numeros) == 0)
+            if (strcmpi (aux.patente.letras, letras) == 0 && strcmpi (aux.patente.numeros, numeros) == 0)
                 {
                     flag = 1;
                     printf ("-EL AUTO YA EXISTE-\n");
@@ -367,14 +370,16 @@ void recorrer_Array_Autos (char archivo [])
         {
             mostrarAuto (aux);
         }
+    fclose  (arch);
 }
 void mostrarAuto(autoS automovil)
 {
-    printf("Patente: %s %s\n", automovil.patente.letras, (automovil).patente.numeros);
-    printf("Marca: %s\n", (automovil).marca);
-    printf("Modelo: %s\n", (automovil).modelo);
-    printf("Año: %s\n", (automovil).anio);
-    printf("Kilómetros: %s\n", (automovil).kms);
+    printf("Patente: %s %s\n", automovil.patente.letras, automovil.patente.numeros);
+    printf("Marca: %s\n", automovil.marca);
+    printf("Modelo: %s\n", automovil.modelo);
+    printf("Año: %s\n", automovil.anio);
+    printf("Kilómetros: %s\n", automovil.kms);
+    printf ("Titular %s\n", automovil.titular.user);
     printf("Precio de Adquisición: %s\n", automovil.precioDeAdquisicion);
     printf("\n");
 }
