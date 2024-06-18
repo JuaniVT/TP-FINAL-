@@ -9,7 +9,7 @@
 // Integrantes: Manuel Segovia, Juan Ignacio Valle Torres, Ignacio Agustin Villarreal
 // SISTEMA PARA CONCESIONARIA DE AUTOS
 //====================================================================================
-char ventas [] = "ventas.bin";
+char ventasArch [] = "ventas.bin";
 char autosArch [] = "autosArch.bin";
 char usuarios [] = "usuarios.bin";
 int main()
@@ -67,6 +67,10 @@ void menu_Vendedor (usuario persona)
         printf ("2- MODIFICAR USUARIO\n");
         printf ("3- AGRAGAR UN USUARIO\n");
         printf ("4- MOSTRAR UN USUARIO(toda la info)\n");
+        printf ("5- CARGAR AUTO AL SISTEMA\n");
+        printf ("6- MOSTRAR LISTADO DE AUTOS\n");
+        printf ("7- MODIFICAR UN AUTO\n");
+        printf ("8- MOSTRAR UN AUTO(toda la info)\n");
         printf ("INGRESE AQUI: ");
         scanf ("%d", &op);
         switch (op)
@@ -93,6 +97,12 @@ void menu_Vendedor (usuario persona)
             break;
         case 6:
             recorrer_Array_Autos (autosArch);
+            break;
+        case 7:
+            modificar_Auto (autosArch);
+            break;
+        case 8:
+            mostrar_Datos_Auto (autosArch);
             break;
         }
     }

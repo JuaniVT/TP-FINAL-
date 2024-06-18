@@ -38,4 +38,10 @@ int comprobar_kms_Auto (char []);
 int validar_Existencia_Auto (FILE*, char [], char []);
 void recorrer_Array_Autos (char []);
 void mostrarAuto(autoS);
+void modificar_Auto (char []);
+int verificar_Anio_Auto (int);
+void mostrar_Datos_Auto (char []);
+void registrar_Venta (char [], char [], char []);
+int buscar_Coincidencia_Patente (char [], char [], char []);
+int comprobar_Edad_Venta (int, int, int);
 #endif // MENUS_H_INCLUDED
