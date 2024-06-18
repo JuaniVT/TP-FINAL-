@@ -262,7 +262,7 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
     int flag3 = 1;
     while (flag3 == 1)
     {
-       while (flag == 1)
+        while (flag == 1)
         {
             printf ("------------------------------------------------------------\n");
             printf ("INGRESE LAS LETRAS DE LA PATENTE\n");
@@ -294,12 +294,12 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
     int flag2 = 1;
     while (flag == 1 || flag2 == 1)
     {
-    printf ("------------------------------------------------------------\n");
-    printf ("INGRESE EL ANIO DEL AUTO\n");
-    fflush (stdin);
-    gets (autoAux.anio);
-    flag = comprobar_Numeros_Dni (autoAux.anio);
-    if (flag == 0)
+        printf ("------------------------------------------------------------\n");
+        printf ("INGRESE EL ANIO DEL AUTO\n");
+        fflush (stdin);
+        gets (autoAux.anio);
+        flag = comprobar_Numeros_Dni (autoAux.anio);
+        if (flag == 0)
         {
             int aux = atoi (autoAux.anio);
             flag2 = verificar_Anio_Auto (aux);
@@ -309,11 +309,11 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
     flag2 = 1;
     while (flag2 == 1)
     {
-    printf ("------------------------------------------------------------\n");
-    printf ("INGRESE LOS KMS DEL AUTO\n");
-    fflush (stdin);
-    gets (autoAux.kms);
-    flag2 = comprobar_kms_Auto (autoAux.kms);
+        printf ("------------------------------------------------------------\n");
+        printf ("INGRESE LOS KMS DEL AUTO\n");
+        fflush (stdin);
+        gets (autoAux.kms);
+        flag2 = comprobar_kms_Auto (autoAux.kms);
     }
     strcpy (autoAux.titular.user, "consecionaria");
     printf ("------------------------------------------------------------\n");
@@ -335,9 +335,9 @@ int comprobar_Caracteres_Patente (char palabra [])
         }
     }
     if (flag == 1)
-        {
-            printf ("-CARACTERES INVALIDOS-\n");
-        }
+    {
+        printf ("-CARACTERES INVALIDOS-\n");
+    }
     return flag;
 }
 int comprobar_kms_Auto (char kms [])
@@ -345,9 +345,9 @@ int comprobar_kms_Auto (char kms [])
     int flag = 0;
     int num = atoi (kms);
     if (num > 300000)
-        {
-            flag = 1;
-        }
+    {
+        flag = 1;
+    }
     return flag;
 }
 int validar_Existencia_Auto (FILE *arch, char letras [], char numeros [])
@@ -356,14 +356,14 @@ int validar_Existencia_Auto (FILE *arch, char letras [], char numeros [])
     autoS aux;
     int flag = 0;
     while (fread(&aux, sizeof (autoS), 1, arch) > 0)
+    {
+        if ((strcmp (letras, aux.patente.letras) == 0) && (strcmp (numeros, aux.patente.numeros) == 0))
         {
-            if ((strcmp (letras, aux.patente.letras) == 0) && (strcmp (numeros, aux.patente.numeros) == 0))
-                {
-                    flag = 1;
-                    printf ("-EL AUTO YA EXISTE-\n");
-                    break;
-                }
+            flag = 1;
+            printf ("-EL AUTO YA EXISTE-\n");
+            break;
         }
+    }
     return flag;
 }
 void recorrer_Array_Autos (char archivo [])
@@ -372,13 +372,13 @@ void recorrer_Array_Autos (char archivo [])
     autoS aux;
     int i = 0;
     while (fread (&aux, sizeof (autoS), 1, arch) > 0)
-        {
-            printf ("------------------------------------------------------------\n");
-            printf ("AUTO Nro %d\n", i + 1);
-            printf ("------------------------------------------------------------\n");
-            mostrarAuto (aux);
-            i++;
-        }
+    {
+        printf ("------------------------------------------------------------\n");
+        printf ("AUTO Nro %d\n", i + 1);
+        printf ("------------------------------------------------------------\n");
+        mostrarAuto (aux);
+        i++;
+    }
     fclose  (arch);
 }
 void mostrarAuto(autoS automovil)
@@ -582,13 +582,13 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
         printf ("------------------------------------------------------------------\n");
         while (flag2 == 1)
         {
-            printf("Ingrese el dia de nacimiento: ");
+            printf("Ingrese el dia de operacion: ");
             fflush (stdin);
             gets (venta.fecha.dia);
-            printf("Ingrese el mes de nacimiento: ");
+            printf("Ingrese el mes de operacion: ");
             fflush (stdin);
             gets (venta.fecha.mes);
-            printf("Ingrese el año de nacimiento: ");
+            printf("Ingrese el año de operacion: ");
             fflush (stdin);
             gets (venta.fecha.anio);
             flag2 = verificar_Caracteres_Edad (venta.fecha.dia, venta.fecha.mes, venta.fecha.anio);
@@ -632,9 +632,9 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
         gets (venta.precioVenta);
         flag = comprobar_Numeros_Dni (venta.precioVenta);
         if (flag == 0)
-            {
-                calcular_Ganancia_Venta (autosArch, &venta);
-            }
+        {
+            calcular_Ganancia_Venta (autosArch, &venta);
+        }
 
     }
     flag = 1;
@@ -664,9 +664,9 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
         flag3 = comprobar_Numeros_Dni (venta.dniComprador);
         flag = verificar_Space (venta.dniComprador);
         if (flag == 0 && flag2 == 0 && flag3 == 0)
-            {
-                 flag4 = verificar_Existencia_Persona_Venta (autosArch, usersArch, venta.dniComprador, venta.autoAVender.letras, venta.autoAVender.numeros);
-            }
+        {
+            flag4 = verificar_Existencia_Persona_Venta (autosArch, usersArch, venta.dniComprador, venta.autoAVender.letras, venta.autoAVender.numeros);
+        }
     }
     return venta;
 }
@@ -676,17 +676,17 @@ int buscar_Coincidencia_Patente (char archivo [], char letras [], char numeros [
     autoS aux;
     int flag = 1;
     while (fread(&aux, sizeof (autoS), 1, arch) > 0)
+    {
+        if ((strcmp (letras, aux.patente.letras) == 0) && (strcmp (numeros, aux.patente.numeros) == 0) /*&& strcmpi (aux.titular.user, "consecionaria") == 0*/)
         {
-            if ((strcmp (letras, aux.patente.letras) == 0) && (strcmp (numeros, aux.patente.numeros) == 0) && strcmpi (aux.titular.user, "consecionaria") == 0)
-                {
-                    flag = 0;
-                    break;
-                }
+            flag = 0;
+            break;
         }
-        if (flag == 1)
-            {
-                printf ("-EL AUTO NO EXISTE-\n");
-            }
+    }
+    if (flag == 1)
+    {
+        printf ("-EL AUTO NO EXISTE O YA SE A VENDIDO-\n");
+    }
     fclose (arch);
     return flag;
 }
@@ -700,10 +700,10 @@ int comprobar_Fecha_Venta (int dia, int mes, int anio)
     flag2 = verificar_Mes (mes);
     flag3 = verificar_Dia (dia, mes);
     if (flag1 != 0 || flag2 != 0 || flag3 != 0)
-        {
-            flag = 1;
-            printf ("-FECHA INVALIDA-\n");
-        }
+    {
+        flag = 1;
+        printf ("-FECHA INVALIDA-\n");
+    }
     return flag;
 }
 void calcular_Ganancia_Venta (char autosArch [], ventaS *venta)
@@ -715,8 +715,9 @@ void calcular_Ganancia_Venta (char autosArch [], ventaS *venta)
         while (fread(&aux, sizeof (autoS), 1, arch) > 0)
         {
             printf ("hola\n");
-            if ((strcmp ((*venta).autoAVender.letras, aux.patente.letras) == 0) && (strcmp ((*venta).autoAVender.letras, aux.patente.numeros) == 0))
+            if ((strcmp ((*venta).autoAVender.letras, aux.patente.letras) == 0) && (strcmp ((*venta).autoAVender.numeros, aux.patente.numeros) == 0))
             {
+                printf ("Hola\n");
                 int precioAdquisicion = atoi (aux.precioDeAdquisicion);
                 int precioVenta = atoi ((*venta).precioVenta);
                 int ganancia = precioVenta - precioAdquisicion;
@@ -732,12 +733,12 @@ void mostrar_Ventas (char ventasArch [])
     ventaS aux;
     int i = 0;
     while (fread (&aux, sizeof (ventaS), 1, arch) > 0)
-        {
-            printf ("------------------------------------------------------------------\n");
-            printf ("VENTA Nro %d\n", i + 1);
-            mostrar_Venta (aux);
-            i++;
-        }
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("VENTA Nro %d\n", i + 1);
+        mostrar_Venta (aux);
+        i++;
+    }
     fclose (arch);
 }
 void mostrar_Venta (ventaS aux)
@@ -796,16 +797,17 @@ void mostrar_Ventas_Arch_Completo (char ventasArch [])
     ventaS aux;
     int i = 0;
     while (fread (&aux, sizeof (ventaS), 1, arch) > 0)
-        {
-            printf ("------------------------------------------------------------------\n");
-            printf ("VENTA Nro %d\n", i + 1);
-            printf ("------------------------------------------------------------------\n");
-            mostrar_VentaS_Completo (aux);
-            i++;
-        }
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("VENTA Nro %d\n", i + 1);
+        printf ("------------------------------------------------------------------\n");
+        mostrar_VentaS_Completo (aux);
+        i++;
+    }
     fclose (arch);
 }
-void mostrar_VentaS_Completo (ventaS venta) {
+void mostrar_VentaS_Completo (ventaS venta)
+{
     printf("Patente: %s-%s\n", venta.autoAVender.letras, venta.autoAVender.numeros);
     printf("Fecha: %s/%s/%s\n", venta.fecha.dia, venta.fecha.mes, venta.fecha.anio);
     printf("Precio de Venta: %s\n", venta.precioVenta);
