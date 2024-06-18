@@ -21,10 +21,10 @@ typedef struct
 {
     Fecha fecha;
     patente autoAVender;
-    float precioVenta;
-    float ganancia;
-    int dniComprador;
-    int dniVendedor;
+    char precioVenta [9];
+    char ganancia [9];
+    char dniComprador [9];
+    char dniVendedor [9];
 
 } ventaS;
 void modificar_usuario (char []);
@@ -41,7 +41,12 @@ void mostrarAuto(autoS);
 void modificar_Auto (char []);
 int verificar_Anio_Auto (int);
 void mostrar_Datos_Auto (char []);
-void registrar_Venta (char [], char [], char []);
+void registrar_Venta_Arch (char [], char [], char []);
+ventaS registrar_Venta (char [], char []);
 int buscar_Coincidencia_Patente (char [], char [], char []);
-int comprobar_Edad_Venta (int, int, int);
+int comprobar_Fecha_Venta (int, int, int);
+void calcular_Ganancia_Venta (char [], ventaS*);
+void mostrar_Ventas (char []);
+void mostrar_Venta (ventaS);
+int verificar_Existencia_Persona_Venta (char [], char []);
 #endif // MENUS_H_INCLUDED

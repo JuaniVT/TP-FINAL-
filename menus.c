@@ -554,7 +554,19 @@ void mostrar_Datos_Auto (char archivo [])
     fclose (arch);
 
 }
-void registrar_Venta (char userArch [], char autosArch [], char ventasArch [])
+void registrar_Venta_Arch (char ventasArch [], char autosArch [], char usersArch [])
+{
+    FILE *arch = fopen (ventasArch, "ab");
+    ventaS aux;
+    if (arch != NULL)
+    {
+        aux = registrar_Venta (autosArch, usersArch);
+        fseek (arch, 0, SEEK_END);
+        fwrite (&aux, sizeof (ventaS), 1, arch);
+    }
+    fclose (arch);
+}
+ventaS registrar_Venta (char autosArch [], char usersArch [])
 {
     printf ("------------------------------------------------------------\n");
     printf ("SECCION PARA REGISTRAR UNA VENTA\n");
@@ -566,7 +578,7 @@ void registrar_Venta (char userArch [], char autosArch [], char ventasArch [])
     {
         flag2 = 1;
         printf ("------------------------------------------------------------------\n");
-        printf ("FECHA DE NACIMIENTO\n");
+        printf ("FECHA DE OPERACION\n");
         printf ("------------------------------------------------------------------\n");
         while (flag2 == 1)
         {
@@ -584,13 +596,14 @@ void registrar_Venta (char userArch [], char autosArch [], char ventasArch [])
         int diaE = atoi (venta.fecha.dia);
         int mesE = atoi (venta.fecha.mes);
         int anioE = atoi (venta.fecha.anio);
-        flag = comprobar_Edad_Venta (diaE, mesE, anioE);
+        flag = comprobar_Fecha_Venta (diaE, mesE, anioE);
     }
     flag = 1;
     flag2 = 1;
     int flag3 = 1;
     while (flag3 == 1)
     {
+        flag = 1;
         while (flag == 1)
         {
             printf ("------------------------------------------------------------\n");
@@ -610,7 +623,43 @@ void registrar_Venta (char userArch [], char autosArch [], char ventasArch [])
         }
         flag3 = buscar_Coincidencia_Patente (autosArch, venta.autoAVender.letras, venta.autoAVender.numeros);
     }
-
+    flag = 1;
+    while (flag == 1)
+    {
+        printf ("------------------------------------------------------------\n");
+        printf ("INGRESE EL PRECIO DE VENTA\n");
+        fflush (stdin);
+        gets (venta.precioVenta);
+        flag = comprobar_Numeros_Dni (venta.precioVenta);
+        calcular_Ganancia_Venta (autosArch, &venta);
+    }
+    flag = 1;
+    flag2 = 1;
+    flag3 = 1;
+    while (flag == 1 || flag3 == 1 || flag2 == 1)
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("DNI DEL VENDEDOR: ");
+        fflush (stdin);
+        gets (venta.dniVendedor);
+        flag2 = verificar_Dni (venta.dniVendedor);
+        flag3 = comprobar_Numeros_Dni (venta.dniVendedor);
+        flag = verificar_Space (venta.dniVendedor);
+    }
+    flag = 1;
+    flag2 = 1;
+    flag3 = 1;
+    while (flag == 1 || flag3 == 1 || flag2 == 1)
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("DNI DEL COMPRADOR: ");
+        fflush (stdin);
+        gets (venta.dniComprador);
+        flag2 = verificar_Dni (venta.dniComprador);
+        flag3 = comprobar_Numeros_Dni (venta.dniComprador);
+        flag = verificar_Space (venta.dniComprador);
+    }
+    return venta;
 }
 int buscar_Coincidencia_Patente (char archivo [], char letras [], char numeros [])
 {
@@ -632,7 +681,7 @@ int buscar_Coincidencia_Patente (char archivo [], char letras [], char numeros [
     fclose (arch);
     return flag;
 }
-int comprobar_Edad_Venta (int dia, int mes, int anio)
+int comprobar_Fecha_Venta (int dia, int mes, int anio)
 {
     int flag = 0;
     int flag1 = 0;
@@ -646,5 +695,60 @@ int comprobar_Edad_Venta (int dia, int mes, int anio)
             flag = 1;
             printf ("-FECHA INVALIDA-\n");
         }
+    return flag;
+}
+void calcular_Ganancia_Venta (char autosArch [], ventaS *venta)
+{
+    FILE *arch = fopen (autosArch, "rb");
+    autoS aux;
+    while (fread(&aux, sizeof (autoS), 1, arch) > 0)
+    {
+        if ((strcmp ((*venta).autoAVender.letras, aux.patente.letras) == 0) && (strcmp ((*venta).autoAVender.letras, aux.patente.numeros) == 0))
+        {
+            int precioAdquisicion = atoi (aux.precioDeAdquisicion);
+            int precioVenta = atoi ((*venta).precioVenta);
+            int ganancia = precioVenta - precioAdquisicion;
+            sprintf ((*venta).ganancia, "%d", ganancia);
+            break;
+        }
+    }
+}
+void mostrar_Ventas (char ventasArch [])
+{
+    FILE * arch = fopen (ventasArch, "rb");
+    ventaS aux;
+    int i = 0;
+    while (fread (&aux, sizeof (ventaS), 1, arch) > 0)
+        {
+            printf ("------------------------------------------------------------------\n");
+            printf ("VENTA Nro %d\n", i + 1);
+            mostrar_Venta (aux);
+        }
+    fclose (arch);
+}
+void mostrar_Venta (ventaS aux)
+{
+    // Mostrar los datos de fecha y patente
+    printf("Fecha de venta: %s/%s/%s\n", aux.fecha.dia, aux.fecha.mes, aux.fecha.anio);
+    printf("Patente: %s %s\n", aux.autoAVender.letras, aux.autoAVender.numeros);
+}
+int verificar_Existencia_Persona_Venta (char usersArch [], char dni [])
+{
+    FILE *arch = fopen (usersArch, "rb");
+    int flag = 1;
+    usuario aux;
+    fseek (arch, 0, SEEK_SET);
+    while (fread (&aux, sizeof (usuario), 1, arch) > 0)
+    {
+        if (strcmp (aux.dni, dni) == 0)
+        {
+            flag = 0;
+            break;
+        }
+    }
+    if (flag == 1)
+    {
+        printf ("-LA PERSONA INGRESADA NO EXITE-\n");
+    }
     return flag;
 }

@@ -71,6 +71,8 @@ void menu_Vendedor (usuario persona)
         printf ("6- MOSTRAR LISTADO DE AUTOS\n");
         printf ("7- MODIFICAR UN AUTO\n");
         printf ("8- MOSTRAR UN AUTO(toda la info)\n");
+        printf ("9- REGISTRAR UNA VENTA\n");
+        printf ("10- VER VENTAS (fecha y patente)\n");
         printf ("INGRESE AQUI: ");
         scanf ("%d", &op);
         switch (op)
@@ -103,6 +105,12 @@ void menu_Vendedor (usuario persona)
             break;
         case 8:
             mostrar_Datos_Auto (autosArch);
+            break;
+        case 9:
+            registrar_Venta_Arch (ventasArch, autosArch, usuarios);
+            break;
+        case 10:
+            mostrar_Ventas (ventasArch);
             break;
         }
     }
