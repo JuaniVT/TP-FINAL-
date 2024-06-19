@@ -63,7 +63,7 @@ void nombre_Usuario(FILE* arch, usuario *persona)
         printf("NO debe contener mayúsculas\n");
         printf("NO debe contener espacios\n");
         printf("------------------------------------------------------------------\n");
-        printf("INGRESE AQUÍ: ");
+        printf("INGRESE AQUI: ");
         fflush(stdin);
         gets((*persona).user);
         printf("------------------------------------------------------------------\n");
@@ -100,7 +100,7 @@ void contrasena(FILE* arch, usuario *persona)
         printf("Debe contener al menos un número\n");
         printf("NO debe contener espacios\n");
         printf("------------------------------------------------------------------\n");
-        printf("INGRESE AQUÍ: ");
+        printf("INGRESE AQUI: ");
         fflush(stdin);
         gets((*persona).contra);
         printf("------------------------------------------------------------------\n");
@@ -850,6 +850,7 @@ usuario pedir_Datos_Registro(FILE *arch, usuario persona) {
         flag2 = 1;
         printf("------------------------------------------------------------------\n");
         printf("FECHA DE NACIMIENTO\n");
+        printf ("XX/XX/XXXX\n");
         printf("------------------------------------------------------------------\n");
         while (flag2 == 1) {
             printf("Ingrese el dia de nacimiento: ");

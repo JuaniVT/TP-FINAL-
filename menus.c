@@ -61,9 +61,9 @@ void modificar_usuario (char archivo [])
 
     if (arch != NULL)
     {
-        printf ("=========================================================\n");
+        printf ("------------------------------------------------------------------\n");
         printf (" SECCION PARA MODIFICAR UN USUARIO\n");
-        printf ("=========================================================\n");
+        printf ("------------------------------------------------------------------\n");
 
         usuario persona;  // Declara una variable para almacenar los datos del usuario a modificar
         int flag = 0;
@@ -84,7 +84,7 @@ void modificar_usuario (char archivo [])
 
         while (op != 0)
         {
-            printf ("=========================================================\n");
+            printf ("------------------------------------------------------------------\n");
             printf ("1- Modificar Nombre y Apeliido\n");
             printf ("2- Modificar dni\n");
             printf ("3- Modificar telefono\n");
@@ -98,7 +98,7 @@ void modificar_usuario (char archivo [])
             printf (" INGRESE AQUI = ");
             scanf ("%i", &op);  // Solicita al usuario la opción de modificación
             printf ("\n");
-            printf ("=========================================================\n");
+            printf ("------------------------------------------------------------------\n");
 
             switch (op)
             {
@@ -245,9 +245,9 @@ void modificar_usuario (char archivo [])
 
             default:
                 // Opción incorrecta
-                printf ("------------------------------------------------------------\n");
+                printf ("------------------------------------------------------------------\n");
                 printf ("SE INGRESO UN VALOR INCORRECTO\n");
-                printf ("------------------------------------------------------------\n");
+                printf ("------------------------------------------------------------------\n");
                 break;
             }
 
@@ -269,13 +269,13 @@ void mostrar_Datos_Usuario (char archivo [])
 
     if (arch != NULL)
     {
-        printf ("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf ("SECCION PARA MOSTRAR DATOS DE UN USUARIO\n");
         printf ("Ingrese el Nro del usuario a mostrar\n");
-        printf ("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf ("INGRESE AQUI = ");
         scanf ("%d", &pos);  // Solicita al usuario el número de usuario a mostrar
-        printf ("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
 
         pos = pos - 1;  // Ajusta la posición para que coincida con el índice del arreglo (resta 1)
         fseek (arch, sizeof (usuario)* pos, SEEK_SET);  // Posiciona el puntero en la posición del usuario seleccionado
@@ -283,7 +283,7 @@ void mostrar_Datos_Usuario (char archivo [])
 
         mostrarUsuario (persona);  // Muestra los datos del usuario utilizando la función mostrarUsuario
 
-        printf ("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
     }
 
     fclose (arch);  // Cierra el archivo
@@ -310,9 +310,9 @@ void registro_auto_Sistema (char archivo [])
 // =================================================================================================
 autoS cargar_Auto (FILE *arch, autoS autoAux)
 {
-    printf ("------------------------------------------------------------\n");
+    printf ("------------------------------------------------------------------\n");
     printf ("SECCION PARA AGREGAR UN AUTO\n");
-    printf ("------------------------------------------------------------\n");
+    printf ("------------------------------------------------------------------\n");
 
     int flag = 1;
     int flag3 = 1;
@@ -323,8 +323,12 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
         // Bucle para ingresar las letras de la patente
         while (flag == 1)
         {
-            printf ("------------------------------------------------------------\n");
+            printf ("------------------------------------------------------------------\n");
             printf ("INGRESE LAS LETRAS DE LA PATENTE\n");
+            printf ("Formato: EN MAYUSCULA\n");
+            printf ("Ejemplo: 'ABC'\n");
+            printf ("------------------------------------------------------------------\n");
+            printf ("INGRESE AQUI: ");
             fflush (stdin);
             gets (autoAux.patente.letras);
             flag = comprobar_Caracteres_Patente (autoAux.patente.letras);
@@ -334,8 +338,11 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
         // Bucle para ingresar los números de la patente y validarlos
         while (flag == 1)
         {
-            printf ("------------------------------------------------------------\n");
+            printf ("------------------------------------------------------------------\n");
             printf ("INGRESE LAS NUMEROS DE LA PATENTE\n");
+            printf ("Ejemplo: '403'\n");
+            printf ("------------------------------------------------------------------\n");
+            printf ("INGRESE AQUI: ");
             fflush (stdin);
             gets (autoAux.patente.numeros);
             flag = comprobar_Numeros_Dni (autoAux.patente.numeros);
@@ -346,14 +353,18 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
     }
 
     // Ingreso de la marca del auto
-    printf ("------------------------------------------------------------\n");
+    printf ("------------------------------------------------------------------\n");
     printf ("INGRESE LA MARCA DEL AUTO\n");
+    printf ("------------------------------------------------------------------\n");
+    printf ("INGRESE AQUI: ");
     fflush (stdin);
     gets (autoAux.marca);
 
     // Ingreso del modelo del auto
-    printf ("------------------------------------------------------------\n");
+    printf ("------------------------------------------------------------------\n");
     printf ("INGRESE EL MODELO DEL AUTO\n");
+    printf ("------------------------------------------------------------------\n");
+    printf ("INGRESE AQUI: ");
     fflush (stdin);
     gets (autoAux.modelo);
 
@@ -363,8 +374,10 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
     // Bucle para ingresar el año del auto y validar
     while (flag == 1 || flag2 == 1)
     {
-        printf ("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf ("INGRESE EL ANIO DEL AUTO\n");
+        printf ("------------------------------------------------------------------\n");
+        printf ("INGRESE AQUI: ");
         fflush (stdin);
         gets (autoAux.anio);
         flag = comprobar_Numeros_Dni (autoAux.anio);
@@ -381,8 +394,10 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
     // Bucle para ingresar los kilómetros del auto y validar
     while (flag2 == 1)
     {
-        printf ("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf ("INGRESE LOS KMS DEL AUTO\n");
+        printf ("------------------------------------------------------------------\n");
+        printf ("INGRESE AQUI: ");
         fflush (stdin);
         gets (autoAux.kms);
         flag2 = comprobar_kms_Auto (autoAux.kms);
@@ -392,8 +407,10 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
     strcpy (autoAux.titular.user, "consecionaria");
 
     // Ingreso del precio de adquisición del auto
-    printf ("------------------------------------------------------------\n");
+    printf ("------------------------------------------------------------------\n");
     printf ("PRECIO DE ADQUISICION\n");
+    printf ("------------------------------------------------------------------\n");
+    printf ("INGRESE AQUI: ");
     gets (autoAux.precioDeAdquisicion);
 
     // Retorna la estructura autoS con todos los datos ingresados y validados
@@ -470,16 +487,21 @@ void recorrer_Array_Autos (char archivo [])
     FILE* arch = fopen (archivo, "rb");  // Abre el archivo en modo lectura binaria ("rb")
     autoS aux;  // Declara una variable auxiliar para almacenar cada registro de auto
     int i = 0;  // Inicializa un contador para el número de autos
-
+    if (arch == NULL)
+        {
+            printf ("------------------------------------------------------------------\n");
+            printf ("NO HAY AUTOS DISPONIBLES\n");
+            printf ("------------------------------------------------------------------\n");
+        }
     // Verifica si el archivo se abrió correctamente
-    if (arch != NULL)
+    else
     {
         // Bucle para leer cada registro de auto del archivo
         while (fread (&aux, sizeof (autoS), 1, arch) > 0)
         {
-            printf ("------------------------------------------------------------\n");
+            printf ("------------------------------------------------------------------\n");
             printf ("AUTO Nro %d\n", i + 1);  // Muestra el número de auto actual
-            printf ("------------------------------------------------------------\n");
+            printf ("------------------------------------------------------------------\n");
             mostrarAuto (aux);  // Llama a la función mostrarAuto para mostrar los detalles del auto
             i++;  // Incrementa el contador de autos
         }
@@ -520,9 +542,9 @@ void modificar_Auto(char archivo[])
     FILE *arch = fopen(archivo, "rb+"); // Abre el archivo en modo lectura y escritura binaria
     if (arch != NULL)
     {
-        printf("=========================================================\n");
+        printf ("------------------------------------------------------------------\n");
         printf(" SECCION PARA MODIFICAR UN AUTO\n");
-        printf("=========================================================\n");
+        printf ("------------------------------------------------------------------\n");
         autoS autoAux; // Variable para almacenar temporalmente los datos del auto a modificar
         int flag = 0;
         int flag2 = 0;
@@ -532,7 +554,7 @@ void modificar_Auto(char archivo[])
         // Solicita al usuario el número del auto a modificar
         printf("Ingrese el Nro del auto a modificar\n");
         scanf("%d", &pos);
-        printf("=========================================================\n");
+        printf ("------------------------------------------------------------------\n");
         pos = pos - 1;
 
         // Ubica la posición del auto en el archivo según el número ingresado
@@ -547,7 +569,7 @@ void modificar_Auto(char archivo[])
         // Bucle para permitir al usuario seleccionar qué dato modificar
         while (op != 0)
         {
-            printf("=========================================================\n");
+            printf ("------------------------------------------------------------------\n");
             printf("1- Modificar patente\n");
             printf("2- Modificar Marca\n");
             printf("3- Modificar Modelo\n");
@@ -559,7 +581,7 @@ void modificar_Auto(char archivo[])
             printf(" INGRESE AQUI = ");
             scanf("%i", &op);
             printf("\n");
-            printf("=========================================================\n");
+            printf ("------------------------------------------------------------------\n");
 
             switch (op)
             {
@@ -568,7 +590,7 @@ void modificar_Auto(char archivo[])
                 while (flag == 1)
                 {
                     // Modifica las letras y números de la patente del auto
-                    printf("------------------------------------------------------------\n");
+                    printf ("------------------------------------------------------------------\n");
                     printf("INGRESE LAS LETRAS DE LA PATENTE\n");
                     fflush(stdin);
                     gets(autoAux.patente.letras);
@@ -577,7 +599,7 @@ void modificar_Auto(char archivo[])
                 flag = 1;
                 while (flag == 1)
                 {
-                    printf("------------------------------------------------------------\n");
+                    printf ("------------------------------------------------------------------\n");
                     printf("INGRESE LAS NUMEROS DE LA PATENTE\n");
                     fflush(stdin);
                     gets(autoAux.patente.numeros);
@@ -586,14 +608,14 @@ void modificar_Auto(char archivo[])
                 break;
             case 2:
                 // Modifica la marca del auto
-                printf("------------------------------------------------------------\n");
+                printf ("------------------------------------------------------------------\n");
                 printf("INGRESE LA MARCA DEL AUTO\n");
                 fflush(stdin);
                 gets(autoAux.marca);
                 break;
             case 3:
                 // Modifica el modelo del auto
-                printf("------------------------------------------------------------\n");
+                printf ("------------------------------------------------------------------\n");
                 printf("INGRESE EL MODELO DEL AUTO\n");
                 fflush(stdin);
                 gets(autoAux.modelo);
@@ -604,7 +626,7 @@ void modificar_Auto(char archivo[])
                 while (flag == 1 || flag2 == 1)
                 {
                     // Modifica el año de fabricación del auto
-                    printf("------------------------------------------------------------\n");
+                    printf ("------------------------------------------------------------------\n");
                     printf("INGRESE EL ANIO DEL AUTO\n");
                     fflush(stdin);
                     gets(autoAux.anio);
@@ -622,7 +644,7 @@ void modificar_Auto(char archivo[])
                 while (flag2 == 1)
                 {
                     // Modifica los kilómetros del auto
-                    printf("------------------------------------------------------------\n");
+                    printf ("------------------------------------------------------------------\n");
                     printf("INGRESE LOS KMS DEL AUTO\n");
                     fflush(stdin);
                     gets(autoAux.kms);
@@ -631,7 +653,7 @@ void modificar_Auto(char archivo[])
                 break;
             case 6:
                 // Modifica el precio de adquisición del auto
-                printf("------------------------------------------------------------\n");
+                printf ("------------------------------------------------------------------\n");
                 printf("PRECIO DE ADQUISICION\n");
                 fflush(stdin);
                 gets(autoAux.precioDeAdquisicion);
@@ -645,9 +667,9 @@ void modificar_Auto(char archivo[])
                 break;
             default:
                 // Opción inválida
-                printf("------------------------------------------------------------\n");
+                printf ("------------------------------------------------------------------\n");
                 printf("SE INGRESO UN VALOR INCORRECTO\n");
-                printf("------------------------------------------------------------\n");
+                printf ("------------------------------------------------------------------\n");
                 break;
             }
 
@@ -690,16 +712,15 @@ void mostrar_Datos_Auto(char archivo [])
     FILE *arch = fopen(archivo, "rb+"); // Abre el archivo en modo lectura y escritura binaria
     int pos = 0; // Variable para almacenar la posición del auto a mostrar
     autoS auxAuto; // Variable para almacenar temporalmente los datos del auto
-
     if (arch != NULL)
     {
-        printf("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf("SECCION PARA MOSTRAR DATOS DE UN AUTO\n");
         printf("Ingrese el Nro del auto a mostrar\n");
-        printf("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf("INGRESE AQUI = ");
         scanf("%d", &pos); // Lee la posición del auto que el usuario desea mostrar
-        printf("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
 
         pos = pos - 1; // Ajusta la posición para que sea compatible con índices de arreglo (empezando desde 0)
 
@@ -707,7 +728,7 @@ void mostrar_Datos_Auto(char archivo [])
         fread(&auxAuto, sizeof(autoS), 1, arch); // Lee los datos del auto desde el archivo y los guarda en auxAuto
 
         mostrarAuto(auxAuto); // Llama a la función mostrarAuto para imprimir los datos del auto
-        printf("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
     }
 
     fclose(arch); // Cierra el archivo después de usarlo
@@ -741,10 +762,9 @@ void registrar_Venta_Arch (char ventasArch [], char autosArch [], char usersArch
 ventaS registrar_Venta (char autosArch [], char usersArch [])
 {
     // Imprimir encabezado para la sección de registro de venta
-    printf ("------------------------------------------------------------\n");
+    printf ("------------------------------------------------------------------\n");
     printf ("SECCION PARA REGISTRAR UNA VENTA\n");
-    printf ("------------------------------------------------------------\n");
-
+    printf ("------------------------------------------------------------------\n");
     ventaS venta; // Estructura para almacenar los datos de la venta
     int flag = 1; // Variable de control para ciclos while
     int flag2 = 1; // Variable de control adicional para ciclos while
@@ -793,8 +813,12 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
         // Bucle para verificar las letras de la patente
         while (flag == 1)
         {
-            printf ("------------------------------------------------------------\n");
+            printf ("------------------------------------------------------------------\n");
             printf ("INGRESE LAS LETRAS DE LA PATENTE\n");
+            printf ("Formato: EN MAYUSCULA\n");
+            printf ("Ejemplo: 'DEF'\n");
+            printf ("------------------------------------------------------------------\n");
+            printf ("INGRESE AQUI: ");
             fflush (stdin);
             gets (venta.autoAVender.letras);
             flag = comprobar_Caracteres_Patente (venta.autoAVender.letras);
@@ -805,8 +829,12 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
         // Bucle para verificar los números de la patente
         while (flag == 1)
         {
-            printf ("------------------------------------------------------------\n");
+            printf ("------------------------------------------------------------------\n");
             printf ("INGRESE LAS NUMEROS DE LA PATENTE\n");
+            printf ("Formato: EN MAYUSCULA\n");
+            printf ("Ejemplo: '543'\n");
+            printf ("------------------------------------------------------------------\n");
+            printf ("INGRESE AQUI: ");
             fflush (stdin);
             gets (venta.autoAVender.numeros);
             flag = comprobar_Numeros_Dni (venta.autoAVender.numeros);
@@ -821,8 +849,10 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
     // Bucle para ingresar el precio de venta del automóvil
     while (flag == 1)
     {
-        printf ("------------------------------------------------------------\n");
+        printf ("------------------------------------------------------------------\n");
         printf ("INGRESE EL PRECIO DE VENTA\n");
+        printf ("------------------------------------------------------------------\n");
+        printf ("INGRESE AQUI: ");
         fflush (stdin);
         gets (venta.precioVenta);
         flag = comprobar_Numeros_Dni (venta.precioVenta);
@@ -843,6 +873,8 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
     {
         printf ("------------------------------------------------------------------\n");
         printf ("DNI DEL VENDEDOR: ");
+        printf ("------------------------------------------------------------------\n");
+        printf ("INGRESE AQUI: ");
         fflush (stdin);
         gets (venta.dniVendedor);
 
@@ -862,6 +894,8 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
     {
         printf ("------------------------------------------------------------------\n");
         printf ("DNI DEL COMPRADOR: ");
+        printf ("------------------------------------------------------------------\n");
+        printf ("INGRESE AQUI: ");
         fflush (stdin);
         gets (venta.dniComprador);
 
@@ -1066,33 +1100,34 @@ int verificar_Existencia_Persona_Venta (char autosArch [], char usersArch [], ch
 }
 // =================================================================================================
 // =================================================================================================
-void mostrar_Ventas_Arch_Completo (char ventasArch [])
+void abrir_Archivo_Ventas (char ventasArch [])
 {
     // Abrir el archivo de ventas
     FILE *arch = fopen (ventasArch, "rb");
-    ventaS aux; // Variable auxiliar de tipo ventaS para leer los registros del archivo
-    int i = 0; // Contador para el número de venta
-
-    // Verificar si se abrió correctamente el archivo
     if (arch != NULL)
     {
-        // Leer registros del archivo de ventas hasta el final
-        while (fread (&aux, sizeof (ventaS), 1, arch) > 0)
-        {
-            // Imprimir encabezado y número de venta
-            printf ("------------------------------------------------------------------\n");
-            printf ("VENTA Nro %d\n", i + 1);
-            printf ("------------------------------------------------------------------\n");
+        ventaS aux; // Variable auxiliar de tipo ventaS para leer los registros del archivo
+        int i = 0; // Contador para el número de venta
+        mostrar_Ventas_Arch_Completo (arch, aux, i);
+        // Cerrar el archivo después de la operación
+    }
+    fclose (arch);
+}
+void mostrar_Ventas_Arch_Completo (FILE* arch, ventaS aux, int i)
+{
+    // Leer registros del archivo de ventas hasta el final
+    if (fread (&aux, sizeof (ventaS), 1, arch) > 0)
+    {
+        // Imprimir encabezado y número de venta
+        printf ("------------------------------------------------------------------\n");
+        printf ("VENTA Nro %d\n", i + 1);
+        printf ("------------------------------------------------------------------\n");
 
-            // Llamar a la función mostrar_VentaS_Completo para mostrar todos los detalles de la venta actual
-            mostrar_VentaS_Completo (aux);
-
-            i++; // Incrementar el contador de ventas
-        }
+        // Llamar a la función mostrar_VentaS_Completo para mostrar todos los detalles de la venta actual
+        mostrar_VentaS_Completo (aux);
+        mostrar_Ventas_Arch_Completo (arch, aux, i + 1);
     }
 
-    // Cerrar el archivo después de la operación
-    fclose (arch);
 }
 // =================================================================================================
 // =================================================================================================
@@ -1279,7 +1314,6 @@ void mostrar_Autos_menos_10 (char autosArch [])
     printf ("------------------------------------------------------------------\n");
     printf("AUTOS CON MENOS DE 10 AÑOS\n");
     printf ("------------------------------------------------------------------\n");
-
     FILE *arch = fopen (autosArch, "rb"); // Abrir el archivo de autos
     autoS aux; // Variable para almacenar los datos de cada auto
 
@@ -1302,4 +1336,49 @@ void mostrar_Autos_menos_10 (char autosArch [])
 
     // Cerrar el archivo después de la operación
     fclose (arch);
+}
+void recorrer_Array_Autos_Comprador (char archivo [])
+{
+    FILE* arch = fopen (archivo, "rb");  // Abre el archivo en modo lectura binaria ("rb")
+    autoS aux;  // Declara una variable auxiliar para almacenar cada registro de auto
+    int i = 0;  // Inicializa un contador para el número de autos
+
+    // Verifica si el archivo se abrió correctamente
+    if (arch != NULL)
+    {
+        // Bucle para leer cada registro de auto del archivo
+        while (fread (&aux, sizeof (autoS), 1, arch) > 0)
+        {
+            if (strcmp (aux.titular.user, "consecionaria") == 0)
+            {
+                printf ("------------------------------------------------------------------\n");
+                printf ("AUTO Nro %d\n", i + 1);  // Muestra el número de auto actual
+                printf ("------------------------------------------------------------------\n");
+                mostrar_Auto_Comprador (aux);  // Llama a la función mostrarAuto para mostrar los detalles del auto
+                i++;  // Incrementa el contador de autos
+            }
+
+        }
+
+        fclose (arch);  // Cierra el archivo después de leer todos los registros
+    }
+}
+// =================================================================================================
+// =================================================================================================
+void mostrar_Auto_Comprador(autoS automovil)
+{
+    // Imprime la patente del automóvil formateada como "Patente: letras-numeros"
+    printf("Patente: %s-%s\n", automovil.patente.letras, automovil.patente.numeros);
+
+    // Imprime la marca del automóvil
+    printf("Marca: %s\n", automovil.marca);
+
+    // Imprime el modelo del automóvil
+    printf("Modelo: %s\n", automovil.modelo);
+
+    // Imprime el año del automóvil
+    printf("Año: %s\n", automovil.anio);
+
+    // Imprime los kilómetros del automóvil
+    printf("Kilómetros: %s\n", automovil.kms);
 }

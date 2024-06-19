@@ -45,17 +45,19 @@ int main()
         default:
             printf ("------------------------------------------------------------------\n");
             printf ("DISCULPE PERO EL VALOR INGRESADO NO CORRESPONDE A NINGUN EJERCICIO\n");
-            printf ("Ingrese cualquier elemento p/continuar\n");
-            printf ("AQUI: ");
-            fflush (stdin);
-            scanf ("%c", &seguirMain);
             break;
         }
+        printf ("------------------------------------------------------------------\n");
+        printf ("Ingrese cualquier elemento p/continuar\n");
+        printf ("AQUI: ");
+        fflush (stdin);
+        scanf ("%c", &seguirMain);
     }
     return 0;
 }
 void menu_Vendedor (usuario persona)
 {
+    char seguirMain;
     int op = 1;
     while (op != 0)
     {
@@ -86,6 +88,10 @@ void menu_Vendedor (usuario persona)
             printf ("------------------------------------------------------------------\n");
             printf ("SECCION CERRADA\n");
             printf ("------------------------------------------------------------------\n");
+            break;
+        default:
+            printf ("------------------------------------------------------------------\n");
+            printf ("DISCULPE PERO EL VALOR INGRESADO NO CORRESPONDE A NINGUN EJERCICIO\n");
             break;
         case 1:
             mostrar_Archivo (usuarios);
@@ -118,7 +124,7 @@ void menu_Vendedor (usuario persona)
             mostrar_Ventas (ventasArch);
             break;
         case 11:
-            mostrar_Ventas_Arch_Completo (ventasArch);
+            abrir_Archivo_Ventas (ventasArch);
             break;
         case 12:
             mostrar_Recaudacion (ventasArch);
@@ -130,5 +136,42 @@ void menu_Vendedor (usuario persona)
             mostrar_Autos_menos_10 (autosArch);
             break;
         }
+        printf ("------------------------------------------------------------------\n");
+        printf ("Ingrese cualquier elemento p/continuar\n");
+        printf ("AQUI: ");
+        fflush (stdin);
+        scanf ("%c", &seguirMain);
+    }
+}
+void menu_Comprador (usuario persona)
+{
+    char seguirMain;
+    int op = 1;
+    while (op != 0)
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("BIENVENIDO %s\n", persona.nombre_Apellido);
+        printf ("MENU PRINCIPAL\n");
+        printf ("------------------------------------------------------------------\n");
+        printf ("0- CERRAR SECCION\n");
+        printf ("1- VER AUTOS EN VENTA\n");
+        printf ("INGRESE AQUI: ");
+        scanf ("%d", &op);
+        switch (op)
+        {
+        case 0:
+            printf ("------------------------------------------------------------------\n");
+            printf ("SECCION CERRADA\n");
+            printf ("------------------------------------------------------------------\n");
+            break;
+        case 1:
+            recorrer_Array_Autos_Comprador (autosArch);
+            break;
+        }
+        printf ("------------------------------------------------------------------\n");
+        printf ("Ingrese cualquier elemento p/continuar\n");
+        printf ("AQUI: ");
+        fflush (stdin);
+        scanf ("%c", &seguirMain);
     }
 }

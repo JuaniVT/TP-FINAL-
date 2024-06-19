@@ -47,7 +47,7 @@ int buscar_Coincidencia_Patente (char [], char [], char []);
 int comprobar_Fecha_Venta (int, int, int);
 void calcular_Ganancia_Venta (char [], ventaS*);
 void mostrar_Ventas (char []);
-void mostrar_Ventas_Arch_Completo (char []);
+void mostrar_Ventas_Arch_Completo (FILE*, ventaS, int);
 void mostrar_Venta (ventaS);
 int verificar_Existencia_Persona_Venta (char [], char [], char [], char [], char []);
 void mostrar_VentaS_Completo (ventaS);
@@ -55,4 +55,7 @@ int calcular_Recaudacion (FILE *, char [], char []);
 void mostrar_Recaudacion (char []);
 void calcular_Venta_Mayor_Ganancia(char[]);
 void mostrar_Autos_menos_10 (char []);
+void recorrer_Array_Autos_Comprador (char []);
+void mostrar_Auto_Comprador(autoS);
+void abrir_Archivo_Ventas (char []);
 #endif // MENUS_H_INCLUDED

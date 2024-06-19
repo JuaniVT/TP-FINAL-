@@ -12,7 +12,13 @@ void login_Persona (char archivo [])
     FILE *arch = fopen (archivo, "rb"); // Abrir el archivo de usuarios
 
     // Verificar si se pudo abrir correctamente el archivo
-    if (arch != NULL)
+    if (arch == NULL)
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("NO HAY NADIE REGISTRADO\n");
+        printf ("------------------------------------------------------------------\n");
+    }
+    else
     {
         usuario aux; // Variable para almacenar los datos de cada usuario
         int i = 1; // Variable de control para el bucle de login
@@ -66,6 +72,10 @@ void login_Persona (char archivo [])
                 if (flag == 1)
                 {
                     menu_Vendedor (aux); // Llamar al menú para vendedores pasando los datos del usuario
+                }
+                else
+                {
+                    menu_Comprador (aux);// Llamar al menú para compradores pasando los datos del usuario
                 }
             }
         }
