@@ -54,4 +54,5 @@ void mostrar_VentaS_Completo (ventaS);
 int calcular_Recaudacion (FILE *, char [], char []);
 void mostrar_Recaudacion (char []);
 void calcular_Venta_Mayor_Ganancia(char[]);
+void mostrar_Autos_menos_10 (char []);
 #endif // MENUS_H_INCLUDED

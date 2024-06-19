@@ -916,3 +916,24 @@ void calcular_Venta_Mayor_Ganancia(char ventasArch[])
     printf ("------------------------------------------------------------------\n");
     mostrar_VentaS_Completo (mayorVenta);
 }
+void mostrar_Autos_menos_10 (char autosArch [])
+{
+    printf ("------------------------------------------------------------------\n");
+    printf("AUTOS CON MENOS DE 10 AÑOS\n");
+    printf ("------------------------------------------------------------------\n");
+    FILE *arch = fopen (autosArch, "rb");
+    autoS aux;
+    if (arch != NULL)
+    {
+        while (fread (&aux, sizeof (autoS), 1, arch) > 0)
+        {
+            int anioInt = atoi (aux.anio);
+            int auX = 2024 - anioInt;
+            if (auX < 10 && strcmp (aux.titular.user, "consecionaria") == 0)
+            {
+                mostrarAuto (aux);
+            }
+        }
+    }
+    fclose (arch);
+}

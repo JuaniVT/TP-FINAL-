@@ -77,6 +77,7 @@ void menu_Vendedor (usuario persona)
         printf ("11- VER VENTAS (completo)\n");
         printf ("12- CALCULAR LA RECAUDACION DE UN DETERMINADO MES DE UN ANIO\n");
         printf ("13- MOSTRAR VENTA CON MAYOR GANANCIA\n");
+        printf ("14- MOSTRAR AUTOS CON MENOS DE 10 AÑOS\n");
         printf ("INGRESE AQUI: ");
         scanf ("%d", &op);
         switch (op)
@@ -124,6 +125,9 @@ void menu_Vendedor (usuario persona)
             break;
         case 13:
             calcular_Venta_Mayor_Ganancia (ventasArch);
+            break;
+        case 14:
+            mostrar_Autos_menos_10 (autosArch);
             break;
         }
     }

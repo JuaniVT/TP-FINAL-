@@ -17,7 +17,7 @@
 	<string.h>
 	<ctype.h>
 
-1718754061 source:c:\users\juani\onedrive\desktop\tp-final-\main.c
+1718755260 source:c:\users\juani\onedrive\desktop\tp-final-\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -85,7 +85,7 @@
 	<string.h>
 	"registro.h"
 
-1718754018 source:c:\users\juani\onedrive\desktop\tp-final-\menus.c
+1718755256 source:c:\users\juani\onedrive\desktop\tp-final-\menus.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -94,7 +94,7 @@
 	"menus.h"
 	"pila.h"
 
-1718754018 c:\users\juani\onedrive\desktop\tp-final-\menus.h
+1718754858 c:\users\juani\onedrive\desktop\tp-final-\menus.h
 
 1718743154 c:\users\juani\onedrive\desktop\tp-final-\pila.h
 	<stdio.h>
