@@ -22,7 +22,7 @@ typedef struct
     Fecha fecha;
     patente autoAVender;
     char precioVenta [9];
-    char ganancia [9];
+    char ganancia [10];
     char dniComprador [9];
     char dniVendedor [9];
 
@@ -58,4 +58,5 @@ void mostrar_Autos_menos_10 (char []);
 void recorrer_Array_Autos_Comprador (char []);
 void mostrar_Auto_Comprador(autoS);
 void abrir_Archivo_Ventas (char []);
+int buscar_Vendedor (char [], char []);
 #endif // MENUS_H_INCLUDED

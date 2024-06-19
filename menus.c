@@ -7,7 +7,8 @@
 #include "pila.h"
 // =================================================================================================
 // =================================================================================================
-void mostrar_Archivo(char archivo[]) {
+void mostrar_Archivo(char archivo[])
+{
     // Encabezado inicial para mostrar la lista de usuarios
     printf("------------------------------------------------------------------\n");
     printf("LISTA DE USUARIOS\n");
@@ -18,11 +19,14 @@ void mostrar_Archivo(char archivo[]) {
     int i = 0;
 
     // Verificar si se abrió correctamente el archivo
-    if (arch != NULL) {
+    if (arch != NULL)
+    {
         // Bucle para leer cada usuario del archivo
-        while (fread(&aux, sizeof(usuario), 1, arch) > 0) {
+        while (fread(&aux, sizeof(usuario), 1, arch) > 0)
+        {
             // Excluir temporalmente el usuario "consecionaria"
-            if (strcmpi(aux.user, "consecionaria") != 0) {
+            if (strcmpi(aux.user, "consecionaria") != 0)
+            {
                 // Mostrar información del usuario
                 printf("------------------------------------------------------------------\n");
                 printf("USUARIO Nro %d:\n", i + 1);
@@ -32,7 +36,9 @@ void mostrar_Archivo(char archivo[]) {
             i++; // Incrementar contador de usuarios mostrados
         }
         fclose(arch); // Cerrar el archivo después de leer todos los usuarios
-    } else {
+    }
+    else
+    {
         // Mensaje de error si no se pudo abrir el archivo
         printf("Error al abrir el archivo %s\n", archivo);
     }
@@ -488,11 +494,11 @@ void recorrer_Array_Autos (char archivo [])
     autoS aux;  // Declara una variable auxiliar para almacenar cada registro de auto
     int i = 0;  // Inicializa un contador para el número de autos
     if (arch == NULL)
-        {
-            printf ("------------------------------------------------------------------\n");
-            printf ("NO HAY AUTOS DISPONIBLES\n");
-            printf ("------------------------------------------------------------------\n");
-        }
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("NO HAY AUTOS DISPONIBLES\n");
+        printf ("------------------------------------------------------------------\n");
+    }
     // Verifica si el archivo se abrió correctamente
     else
     {
@@ -775,6 +781,7 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
         flag2 = 1;
         printf ("------------------------------------------------------------------\n");
         printf ("FECHA DE OPERACION\n");
+        printf ("Formato: XX/XX/XXXX\n");
         printf ("------------------------------------------------------------------\n");
 
         // Bucle para verificar la entrada de la fecha
@@ -867,12 +874,12 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
     flag = 1;
     flag2 = 1;
     flag3 = 1;
-
+    int flag4 = 1;
     // Bucle para ingresar el DNI del vendedor válido
-    while (flag == 1 || flag3 == 1 || flag2 == 1)
+    while (flag == 1 || flag3 == 1 || flag2 == 1 || flag4 == 1)
     {
         printf ("------------------------------------------------------------------\n");
-        printf ("DNI DEL VENDEDOR: ");
+        printf ("DNI DEL VENDEDOR:\n");
         printf ("------------------------------------------------------------------\n");
         printf ("INGRESE AQUI: ");
         fflush (stdin);
@@ -882,18 +889,22 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
         flag2 = verificar_Dni (venta.dniVendedor);
         flag3 = comprobar_Numeros_Dni (venta.dniVendedor);
         flag = verificar_Space (venta.dniVendedor);
+        if (flag == 0 && flag2 == 0 && flag3 == 0)
+        {
+            flag4 = buscar_Vendedor (usersArch, venta.dniVendedor);
+        }
     }
 
     flag = 1;
     flag2 = 1;
     flag3 = 1;
-    int flag4 = 1;
+    flag4 = 1;
 
     // Bucle para ingresar el DNI del comprador válido y verificar su existencia
     while (flag == 1 || flag3 == 1 || flag2 == 1 || flag4 == 1)
     {
         printf ("------------------------------------------------------------------\n");
-        printf ("DNI DEL COMPRADOR: ");
+        printf ("DNI DEL COMPRADOR:\n");
         printf ("------------------------------------------------------------------\n");
         printf ("INGRESE AQUI: ");
         fflush (stdin);
@@ -1381,4 +1392,30 @@ void mostrar_Auto_Comprador(autoS automovil)
 
     // Imprime los kilómetros del automóvil
     printf("Kilómetros: %s\n", automovil.kms);
+}
+int buscar_Vendedor (char personas [], char dni [])
+{
+    FILE *arch = fopen (personas, "rb");
+    usuario aux;
+    int flag = 1;
+    if (arch != NULL)
+    {
+        while (fread (&aux, sizeof (usuario), 1, arch) > 0)
+        {
+            if (strcmp (aux.dni, dni) == 0 && strcmpi (aux.rol, "VENDEDOR")== 0)
+            {
+                flag = 0;
+                break;
+            }
+        }
+        fclose (arch);
+    }
+    if (flag == 1)
+    {
+        printf ("------------------------------------------------------------------\n");
+        printf ("-NO EXISTE UNA VENDEDOR CON ESE DNI-\n");
+        printf ("------------------------------------------------------------------\n");
+
+    }
+    return flag;
 }
