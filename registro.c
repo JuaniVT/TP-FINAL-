@@ -638,7 +638,7 @@ int verificar_Mes(int mes)
     int flag = 0;  // Variable para indicar la validez del mes (0: válido, 1: inválido)
 
     // Verifica si el mes está fuera del rango válido (de 1 a 12)
-    if (mes <= 1 || mes >= 12)
+    if (mes < 1 || mes > 12)
     {
         flag = 1;  // Cambia 'flag' a 1 si el mes está fuera del rango válido
     }

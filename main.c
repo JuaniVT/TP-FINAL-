@@ -17,7 +17,6 @@ int main()
 {
     // VARIABLES DEL MAIN =====================
     int ops = 1; // SWITCH
-    char seguirMain;
     // ========================================
     while (ops != 0)
     {
@@ -47,11 +46,6 @@ int main()
             printf ("DISCULPE PERO EL VALOR INGRESADO NO CORRESPONDE A NINGUN EJERCICIO\n");
             break;
         }
-        printf ("------------------------------------------------------------------\n");
-        printf ("Ingrese cualquier elemento p/continuar\n");
-        printf ("AQUI: ");
-        fflush (stdin);
-        scanf ("%c", &seguirMain);
     }
     return 0;
 }
@@ -118,7 +112,7 @@ void menu_Vendedor (usuario persona)
             mostrar_Datos_Auto (autosArch);
             break;
         case 9:
-            registrar_Venta_Arch (ventasArch, autosArch, usuarios);
+            registrar_Venta_Arch (ventasArch, autosArch, usuarios, persona);
             break;
         case 10:
             mostrar_Ventas (ventasArch);

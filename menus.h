@@ -41,8 +41,8 @@ void mostrarAuto(autoS);
 void modificar_Auto (char []);
 int verificar_Anio_Auto (int);
 void mostrar_Datos_Auto (char []);
-void registrar_Venta_Arch (char [], char [], char []);
-ventaS registrar_Venta (char [], char []);
+void registrar_Venta_Arch (char [], char [], char [], usuario);
+ventaS registrar_Venta (char [], char [], usuario);
 int buscar_Coincidencia_Patente (char [], char [], char []);
 int comprobar_Fecha_Venta (int, int, int);
 void calcular_Ganancia_Venta (char [], ventaS*);
@@ -59,4 +59,6 @@ void recorrer_Array_Autos_Comprador (char []);
 void mostrar_Auto_Comprador(autoS);
 void abrir_Archivo_Ventas (char []);
 int buscar_Vendedor (char [], char []);
+int buscar_Coincidencia_Patente_Para_Mostrar_Auto (char [], char [], char []);
+int buscar_Posicion_Auto (char [], char [], char []);
 #endif // MENUS_H_INCLUDED

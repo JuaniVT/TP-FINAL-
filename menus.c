@@ -412,14 +412,24 @@ autoS cargar_Auto (FILE *arch, autoS autoAux)
     // Establecer el usuario titular del auto como "consecionaria"
     strcpy (autoAux.titular.user, "consecionaria");
 
-    // Ingreso del precio de adquisición del auto
-    printf ("------------------------------------------------------------------\n");
-    printf ("PRECIO DE ADQUISICION\n");
-    printf ("------------------------------------------------------------------\n");
-    printf ("INGRESE AQUI: ");
-    gets (autoAux.precioDeAdquisicion);
+    flag = 1;
 
-    // Retorna la estructura autoS con todos los datos ingresados y validados
+    // bucle que comprueba que el precio de adquisicion sea correcto
+    while (flag == 1)
+    {
+        // Ingreso del precio de adquisición del auto
+        printf ("------------------------------------------------------------------\n");
+        printf ("PRECIO DE ADQUISICION\n");
+        printf ("------------------------------------------------------------------\n");
+        printf ("INGRESE AQUI: ");
+        gets (autoAux.precioDeAdquisicion);
+        flag = comprobar_Numeros_Dni (autoAux.precioDeAdquisicion);
+    }
+
+
+    printf ("------------------------------------------------------------------\n");
+    printf ("CARGADO CORRECTAMENTE\n");
+    printf ("------------------------------------------------------------------\n");
     return autoAux;
 }
 // =================================================================================================
@@ -598,6 +608,8 @@ void modificar_Auto(char archivo[])
                     // Modifica las letras y números de la patente del auto
                     printf ("------------------------------------------------------------------\n");
                     printf("INGRESE LAS LETRAS DE LA PATENTE\n");
+                    printf ("------------------------------------------------------------------\n");
+                    printf ("INGRESE AQUI= ");
                     fflush(stdin);
                     gets(autoAux.patente.letras);
                     flag = comprobar_Caracteres_Patente(autoAux.patente.letras);
@@ -616,6 +628,8 @@ void modificar_Auto(char archivo[])
                 // Modifica la marca del auto
                 printf ("------------------------------------------------------------------\n");
                 printf("INGRESE LA MARCA DEL AUTO\n");
+                printf ("------------------------------------------------------------------\n");
+                printf ("INGRESE AQUI= ");
                 fflush(stdin);
                 gets(autoAux.marca);
                 break;
@@ -623,6 +637,8 @@ void modificar_Auto(char archivo[])
                 // Modifica el modelo del auto
                 printf ("------------------------------------------------------------------\n");
                 printf("INGRESE EL MODELO DEL AUTO\n");
+                printf ("------------------------------------------------------------------\n");
+                printf ("INGRESE AQUI= ");
                 fflush(stdin);
                 gets(autoAux.modelo);
                 break;
@@ -634,6 +650,8 @@ void modificar_Auto(char archivo[])
                     // Modifica el año de fabricación del auto
                     printf ("------------------------------------------------------------------\n");
                     printf("INGRESE EL ANIO DEL AUTO\n");
+                    printf ("------------------------------------------------------------------\n");
+                    printf ("INGRESE AQUI= ");
                     fflush(stdin);
                     gets(autoAux.anio);
                     flag = comprobar_Numeros_Dni(autoAux.anio);
@@ -652,6 +670,9 @@ void modificar_Auto(char archivo[])
                     // Modifica los kilómetros del auto
                     printf ("------------------------------------------------------------------\n");
                     printf("INGRESE LOS KMS DEL AUTO\n");
+                    printf ("MAX 200000 KMS\n");
+                    printf ("------------------------------------------------------------------\n");
+                    printf ("INGRESE AQUI= ");
                     fflush(stdin);
                     gets(autoAux.kms);
                     flag2 = comprobar_kms_Auto(autoAux.kms);
@@ -661,6 +682,8 @@ void modificar_Auto(char archivo[])
                 // Modifica el precio de adquisición del auto
                 printf ("------------------------------------------------------------------\n");
                 printf("PRECIO DE ADQUISICION\n");
+                printf ("------------------------------------------------------------------\n");
+                printf ("INGRESE AQUI= ");
                 fflush(stdin);
                 gets(autoAux.precioDeAdquisicion);
                 break;
@@ -715,33 +738,65 @@ int verificar_Anio_Auto(int anio)
 // =================================================================================================
 void mostrar_Datos_Auto(char archivo [])
 {
-    FILE *arch = fopen(archivo, "rb+"); // Abre el archivo en modo lectura y escritura binaria
-    int pos = 0; // Variable para almacenar la posición del auto a mostrar
+    int flag2 = 1; // Variable que permite poder ingresar al while y comprobar la existencia de la patente
     autoS auxAuto; // Variable para almacenar temporalmente los datos del auto
-    if (arch != NULL)
-    {
-        printf ("------------------------------------------------------------------\n");
-        printf("SECCION PARA MOSTRAR DATOS DE UN AUTO\n");
-        printf("Ingrese el Nro del auto a mostrar\n");
-        printf ("------------------------------------------------------------------\n");
-        printf("INGRESE AQUI = ");
-        scanf("%d", &pos); // Lee la posición del auto que el usuario desea mostrar
-        printf ("------------------------------------------------------------------\n");
+        while (flag2 == 1)
+        {
+            printf ("------------------------------------------------------------------\n");
+            printf("SECCION PARA MOSTRAR DATOS DE UN AUTO\n");
+            printf("Ingrese la patente del auto a buscar\n");
+            printf ("------------------------------------------------------------------\n");
 
-        pos = pos - 1; // Ajusta la posición para que sea compatible con índices de arreglo (empezando desde 0)
+            int flag = 1;
 
-        fseek(arch, sizeof(autoS) * pos, SEEK_SET); // Coloca el puntero de lectura en la posición del auto deseado
+            // Bucle para verificar las letras de la patente
+            while (flag == 1)
+            {
+                printf ("------------------------------------------------------------------\n");
+                printf ("INGRESE LAS LETRAS DE LA PATENTE\n");
+                printf ("Formato: EN MAYUSCULA\n");
+                printf ("Ejemplo: 'DEF'\n");
+                printf ("------------------------------------------------------------------\n");
+                printf ("INGRESE AQUI: ");
+                fflush (stdin);
+                gets (auxAuto.patente.letras);
+                flag = comprobar_Caracteres_Patente (auxAuto.patente.letras);
+            }
+
+            flag = 1;
+
+            // Bucle para verificar los números de la patente
+            while (flag == 1)
+            {
+                printf ("------------------------------------------------------------------\n");
+                printf ("INGRESE LAS NUMEROS DE LA PATENTE\n");
+                printf ("Formato: EN MAYUSCULA\n");
+                printf ("Ejemplo: '543'\n");
+                printf ("------------------------------------------------------------------\n");
+                printf ("INGRESE AQUI: ");
+                fflush (stdin);
+                gets (auxAuto.patente.numeros);
+                flag = comprobar_Numeros_Dni (auxAuto.patente.numeros);
+            }
+
+            // Verificar si la patente ingresada coincide con algún auto en el archivo autosArch
+            flag2 = buscar_Coincidencia_Patente (archivo, auxAuto.patente.letras, auxAuto.patente.numeros);
+        }
+        // Busca la poscion que ocupa en el archivo el auto a buscar y lo retorna para mostrarlo en lo que sigue
+        int i = buscar_Posicion_Auto (archivo, auxAuto.patente.letras, auxAuto.patente.numeros);
+        // Apertura del archivo para mostrar el auto.
+        FILE * arch = fopen (archivo, "rb");
+        fseek(arch, sizeof(autoS) * i, SEEK_SET); // Coloca el puntero de lectura en la posición del auto deseado
         fread(&auxAuto, sizeof(autoS), 1, arch); // Lee los datos del auto desde el archivo y los guarda en auxAuto
 
         mostrarAuto(auxAuto); // Llama a la función mostrarAuto para imprimir los datos del auto
         printf ("------------------------------------------------------------------\n");
-    }
 
     fclose(arch); // Cierra el archivo después de usarlo
 }
 // =================================================================================================
 // =================================================================================================
-void registrar_Venta_Arch (char ventasArch [], char autosArch [], char usersArch [])
+void registrar_Venta_Arch (char ventasArch [], char autosArch [], char usersArch [], usuario vendedor)
 {
     // Abrir el archivo de ventas
     FILE *arch = fopen (ventasArch, "ab");
@@ -751,7 +806,7 @@ void registrar_Venta_Arch (char ventasArch [], char autosArch [], char usersArch
     if (arch != NULL)
     {
         // Llamar a la función registrar_Venta para obtener los datos de la venta a registrar
-        aux = registrar_Venta (autosArch, usersArch);
+        aux = registrar_Venta (autosArch, usersArch, vendedor);
 
         // Posicionarse al final del archivo para añadir la nueva venta
         fseek (arch, 0, SEEK_END);
@@ -765,7 +820,7 @@ void registrar_Venta_Arch (char ventasArch [], char autosArch [], char usersArch
 }
 // =================================================================================================
 // =================================================================================================
-ventaS registrar_Venta (char autosArch [], char usersArch [])
+ventaS registrar_Venta (char autosArch [], char usersArch [], usuario vendedor)
 {
     // Imprimir encabezado para la sección de registro de venta
     printf ("------------------------------------------------------------------\n");
@@ -870,36 +925,13 @@ ventaS registrar_Venta (char autosArch [], char usersArch [])
             calcular_Ganancia_Venta (autosArch, &venta);
         }
     }
+    // Se ingresa automaticamente el dni del vendedor logeado en la venta
+    strcpy (venta.dniVendedor, vendedor.dni);
 
     flag = 1;
     flag2 = 1;
     flag3 = 1;
     int flag4 = 1;
-    // Bucle para ingresar el DNI del vendedor válido
-    while (flag == 1 || flag3 == 1 || flag2 == 1 || flag4 == 1)
-    {
-        printf ("------------------------------------------------------------------\n");
-        printf ("DNI DEL VENDEDOR:\n");
-        printf ("------------------------------------------------------------------\n");
-        printf ("INGRESE AQUI: ");
-        fflush (stdin);
-        gets (venta.dniVendedor);
-
-        // Verificar el formato y caracteres del DNI del vendedor
-        flag2 = verificar_Dni (venta.dniVendedor);
-        flag3 = comprobar_Numeros_Dni (venta.dniVendedor);
-        flag = verificar_Space (venta.dniVendedor);
-        if (flag == 0 && flag2 == 0 && flag3 == 0)
-        {
-            flag4 = buscar_Vendedor (usersArch, venta.dniVendedor);
-        }
-    }
-
-    flag = 1;
-    flag2 = 1;
-    flag3 = 1;
-    flag4 = 1;
-
     // Bucle para ingresar el DNI del comprador válido y verificar su existencia
     while (flag == 1 || flag3 == 1 || flag2 == 1 || flag4 == 1)
     {
@@ -938,7 +970,7 @@ int buscar_Coincidencia_Patente (char archivo [], char letras [], char numeros [
     while (fread(&aux, sizeof (autoS), 1, arch) > 0)
     {
         // Comparar las letras y números de la patente con los del registro actual (aux)
-        if ((strcmp (letras, aux.patente.letras) == 0) && (strcmp (numeros, aux.patente.numeros) == 0))
+        if ((strcmp (letras, aux.patente.letras) == 0) && (strcmp (numeros, aux.patente.numeros) == 0) && strcmpi (aux.titular.user, "consecionaria") == 0)
         {
             flag = 0; // Cambiar el valor de flag a 0 si se encuentra la patente
             break; // Salir del bucle ya que se encontró una coincidencia
@@ -1393,29 +1425,57 @@ void mostrar_Auto_Comprador(autoS automovil)
     // Imprime los kilómetros del automóvil
     printf("Kilómetros: %s\n", automovil.kms);
 }
-int buscar_Vendedor (char personas [], char dni [])
+int buscar_Coincidencia_Patente_Para_Mostrar_Auto (char archivo [], char letras [], char numeros [])
 {
-    FILE *arch = fopen (personas, "rb");
-    usuario aux;
-    int flag = 1;
-    if (arch != NULL)
+    // Abrir el archivo
+    FILE *arch = fopen (archivo, "rb");
+    autoS aux; // Variable auxiliar de tipo autoS para leer los registros del archivo
+    int flag = 1; // Variable de control para indicar si se encontró la patente
+
+    // Leer registros del archivo hasta el final
+    while (fread(&aux, sizeof (autoS), 1, arch) > 0)
     {
-        while (fread (&aux, sizeof (usuario), 1, arch) > 0)
+        // Comparar las letras y números de la patente con los del registro actual (aux)
+        if ((strcmp (letras, aux.patente.letras) == 0) && (strcmp (numeros, aux.patente.numeros) == 0))
         {
-            if (strcmp (aux.dni, dni) == 0 && strcmpi (aux.rol, "VENDEDOR")== 0)
-            {
-                flag = 0;
-                break;
-            }
+            flag = 0; // Cambiar el valor de flag a 0 si se encuentra la patente
+            break; // Salir del bucle ya que se encontró una coincidencia
         }
-        fclose (arch);
     }
+
+    // Si flag es 1, significa que no se encontró la patente en el archivo
     if (flag == 1)
     {
-        printf ("------------------------------------------------------------------\n");
-        printf ("-NO EXISTE UNA VENDEDOR CON ESE DNI-\n");
-        printf ("------------------------------------------------------------------\n");
-
+        printf ("-EL AUTO NO EXISTE-\n");
     }
+
+    // Cerrar el archivo después de la búsqueda
+    fclose (arch);
+
+    // Retornar el valor de flag, que indica si se encontró la patente (0) o no (1)
     return flag;
+}
+
+int buscar_Posicion_Auto (char archivo [], char letras [], char numeros [])
+{
+    // Abrir el archivo
+    FILE *arch = fopen (archivo, "rb");
+    autoS aux; // Variable auxiliar de tipo autoS para leer los registros del archivo
+    int i = 0; // Variable que retornarnmos con la posicion a mostrar
+
+    // Leer registros del archivo hasta el final
+    while (fread(&aux, sizeof (autoS), 1, arch) > 0)
+    {
+        // Comparar las letras y números de la patente con los del registro actual (aux)
+        if ((strcmp (letras, aux.patente.letras) == 0) && (strcmp (numeros, aux.patente.numeros) == 0) && strcmpi (aux.titular.user, "consecionaria") == 0)
+        {
+            break; // Salir del bucle ya que se encontró una coincidencia
+        }
+        i++;
+    }
+    // Cerrar el archivo después de la búsqueda
+    fclose (arch);
+
+    // Retornar el valor de flag, que indica si se encontró la patente (0) o no (1)
+    return i;
 }
