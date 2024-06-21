@@ -31,16 +31,25 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="login.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="login.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="menus.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menus.h" />
+		<Unit filename="pila.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pila.h" />
 		<Unit filename="registro.c">
 			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="registro.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="registro.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
